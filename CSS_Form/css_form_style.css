@@ -4,6 +4,7 @@
 
 body {
     font-size: 100%;
+    line-height: 1em;
     color: #70635D;
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
@@ -18,21 +19,24 @@ body {
 }
 
 .page_header h1 {
-    font-size: 1.8em;
+    font-size: 1.75em;
+    line-height: 1.2em;
     margin: 0 0 0.2em 0;
 }
 
 .content {
-    padding: 20px;
+    padding: 20px 20px 15px 20px;
     background-color: #FDEED9;
 }
 
 form p {
-    font-size: 0.85em;
-    margin: 0 0 1.5em 0;
+    font-size: 0.875em;
+    margin: 0 0 1.35em 0;
 }
 
-label, input, textarea {
+label,
+input,
+textarea {
     display: block;
     width: 100%;
 }
@@ -42,18 +46,22 @@ label {
     margin: 0 0 0.5em 0;
 }
 
-input, textarea {
-    padding: 0.8em;
+input,
+textarea {
+    padding: 0.75em;
     background-color: #FFF;
     border: none;
     resize: vertical;
 }
 
-input:focus, textarea:focus {
-    outline: 1px solid #AEABA8;;
+input:focus,
+textarea:focus {
+    outline: 1px solid #AEABA8;
+    outline-offset: 1px;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #AEABA8;
 }
 
@@ -66,17 +74,17 @@ p.button input {
     padding: 0.5em 0.8em;
     float: right;
     background-color: #388DB2;
-    border: 1px solid #4A889D;
+    border: 1px solid #387386;
     color: #FFF;
     font-weight: bold;
 }
 
 p.button input:hover {
-    background-color: #4A889D;
+    background-color: #387386;
 }
 
 p.button::after {
-        content: "";
-        clear: both;
-        display: block;
+    display: block;
+    content: "";
+    clear: both;
 }

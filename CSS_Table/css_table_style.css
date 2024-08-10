@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 100%;
+    line-height: 1em;
+    color: #0E0300;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+.wrap {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    font-size: 1.25em;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+
+table, tr, th, td {
+    border-collapse: collapse;
+    border: solid 1px #CFCFCF;
+}
+
+table th {
+    padding: 0.8em 1.5em 0.55em 0.55em;
+}
+
+table td {
+    padding: 0.95em 1.5em 0.8em 0.5em;
+}
+
+table thead th {
+    background-color: #3698D9;
+    color: #F5FFF5;
+    font-weight: normal;
+}
+
+table tr:nth-child(odd) td {
+    background-color: #EEE;
+}
