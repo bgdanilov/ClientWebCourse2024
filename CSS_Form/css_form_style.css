@@ -57,7 +57,7 @@ textarea {
 input:focus,
 textarea:focus {
     outline: 1px solid #AEABA8;
-    outline-offset: 1px;
+    outline-offset: 0px;
 }
 
 input::placeholder,
