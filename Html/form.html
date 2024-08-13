@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="utf-8">
+    <title>Задача 1. Форма без CSS.</title>
+</head>
+<body>
+    <div class="wrapper">
+        <form name="contact_form" action="page.html" method="post">
+            <h3>Контактная информация</h3>
+            <p>
+                <label>
+                    Имя: *<input type="text" name="name" size="50" maxlength="100">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Email: *<input type="email" name="email" size="50" maxlength="100">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Город:<input type="text" name="city" size="50" maxlength="100">
+                </label>
+            </p>
+
+            <h3>Ваш пол</h3>
+            <p>
+                <label><input type="radio" name="sex" value="male" checked>Мужчина</label>
+                <label><input type="radio" name="sex" value="female">Женщина</label>
+            </p>
+
+            <h3>Используемые устройства</h3>
+            <p>
+                <label>Тип устройства:
+                    <select name="devices" multiple>
+                        <option value="1">Смартфон</option>
+                        <option value="2">Настольный компьютер</option>
+                        <option value="3">Телевизор</option>
+                    </select>
+                </label>
+            </p>
+
+            <h3>Комментарий</h3>
+            <p>
+                <label>Тема:
+                    <select name="comments_theme">
+                        <option value="1">Проблемы с интернетом</option>
+                        <option value="2">Подключение нового абонента</option>
+                        <option value="3">Выразить благодарность</option>
+                    </select>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Сообщение:<textarea name="comments" cols="65" rows="5"></textarea>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" name="spam_agree" checked>Согласен получать спам:
+                </label>
+            </p>
+            <p><input type="submit" value="Отправить"></p>
+        </form>
+    </div>
+</body>
+</html>
