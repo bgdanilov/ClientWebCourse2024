@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="ru-RU">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
     <title>Задача CSS form</title>
-    <link href="reset.css" rel="stylesheet" type="text/css" />
-    <link href="css_form_style.css" rel="stylesheet" type="text/css" />
+    <link href="reset.css" rel="stylesheet">
+    <link href="css_form_style.css" rel="stylesheet">
 </head>
-
 <body>
-    <div class="wrap">
-
+    <div class="wrapper">
         <div class="page_header">
             <h1>Отправить заявку</h1>
         </div>
         <div class="content">
-           <form name="contact_form" action="#" method="post">
-                <p>
+            <form class="contact_form" name="contact_form" action="#" method="post">
+                <div class="form_row">
                     <label for="name">Ваше имя</label>
-                    <input type="text" name="name" id="name" placeholder="Ваше имя *" size="50"/>
-                </p>
-                <p>
+                    <input type="text" name="name" id="name" placeholder="Ваше имя *" size="50">
+                </div>
+                <div class="form_row">
                     <label for="phone">Ваш номер телефона</label>
-                    <input type="tel" name="phone" id="phone" placeholder="Ваш номер телефона *" size="50" />
-                </p>
-                <p>
+                    <input type="tel" name="phone" id="phone" placeholder="Ваш номер телефона *" size="50">
+                </div>
+                <div class="form_row">
                     <label for="email">Ваш email или VK</label>
-                    <input type="email" name="email" id="email" placeholder="Ваш email или VK *" size="50" />
-                </p>
-                <p>
+                    <input type="email" name="email" id="email" placeholder="Ваш email или VK *" size="50">
+                </div>
+                <div class="form_row">
                     <label for="comments">Комментарий</label>
-                    <textarea name="comments" id="comments" placeholder="Комментарий (не обязательно)" cols="65" rows="6"></textarea>
-                </p>
-                <p>Заполните и отправьте форму, и мы перезвоним Вам по указанному номеру</p>
-                <p class="button"><input type="submit" value="Отправить заявку" /></p>
-           </form>
+                    <textarea name="comments" id="comments" placeholder="Комментарий (не обязательно)" cols="65"
+                        rows="6"></textarea>
+                </div>
+                <div class="form_row">
+                    <p>
+                        Заполните и отправьте форму, и мы перезвоним Вам по указанному номеру.
+                    </p>
+                </div>
+                <div class="form_row button">
+                    <input type="submit" value="Отправить заявку">
+                </div>
+            </form>
         </div>
     </div>
 </body>
-
 </html>

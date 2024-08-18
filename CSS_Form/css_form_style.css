@@ -9,7 +9,7 @@ body {
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
-.wrap {
+.wrapper {
     max-width: 742px;
     margin: 0 auto;
 }
@@ -25,51 +25,55 @@ body {
 }
 
 .content {
-    padding: 20px 20px 15px 20px;
+    padding: 15px 20px 15px 20px;
     background-color: #FDEED9;
 }
 
-form p {
+.form_row {
     font-size: 0.875em;
-    margin: 0 0 1.35em 0;
+    margin: 0 0 1.143em 0;
 }
 
-label,
-input,
-textarea {
+.form_row label,
+.form_row input,
+.form_row textarea {
     display: block;
     width: 100%;
 }
 
-label {
+.form_row label {
     font-weight: bold;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.572em 0;
 }
 
-input,
-textarea {
-    padding: 0.75em;
+.form_row input,
+.form_row textarea {
+    padding: 0.643em;
     background-color: #FFF;
     border: none;
     resize: vertical;
 }
 
-input:focus,
-textarea:focus {
+.form_row input:focus,
+.form_row textarea:focus {
     outline: 1px solid #AEABA8;
     outline-offset: 0px;
 }
 
-input::placeholder,
-textarea::placeholder {
+.form_row input::placeholder,
+.form_row textarea::placeholder {
     color: #AEABA8;
 }
 
-p.button {
+.form_row p {
+    margin: 0 0 0.572em 0;
+}
+
+.button {
     margin: 0;
 }
 
-p.button input {
+.button input {
     width: auto;
     padding: 0.5em 0.8em;
     float: right;
@@ -79,11 +83,11 @@ p.button input {
     font-weight: bold;
 }
 
-p.button input:hover {
+.button input:hover {
     background-color: #387386;
 }
 
-p.button::after {
+.button::after {
     display: block;
     content: "";
     clear: both;
