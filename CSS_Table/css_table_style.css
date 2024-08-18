@@ -9,7 +9,7 @@ body {
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
-.wrap {
+.wrapper {
     max-width: 860px;
     margin: 0 auto;
 }
@@ -17,7 +17,7 @@ body {
 table {
     width: 100%;
     font-size: 1.25em;
-    letter-spacing: 0.05em;
+    line-height: 1.25em;
     text-align: left;
 }
 
@@ -27,11 +27,11 @@ table, tr, th, td {
 }
 
 table th {
-    padding: 0.8em 1.5em 0.55em 0.55em;
+    padding: 0.75em 0.55em 0.4em 0.55em;
 }
 
 table td {
-    padding: 0.95em 1.5em 0.8em 0.5em;
+    padding: 0.663em 0.5em 0.663em 0.5em;
 }
 
 table thead th {
