@@ -57,7 +57,7 @@ body {
 .form_row input:focus,
 .form_row textarea:focus {
     outline: 1px solid #AEABA8;
-    outline-offset: 0px;
+    outline-offset: 0;
 }
 
 .form_row input::placeholder,
