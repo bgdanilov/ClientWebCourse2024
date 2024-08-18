@@ -9,7 +9,7 @@ body {
     font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
-.wrap {
+.wrapper {
     max-width: 747px;
     margin: 0 auto;
     background-color: #FDEED9;
@@ -31,7 +31,7 @@ body {
     margin: 0 0 0.4em 0;
 }
 
-.content h3 {
+.content h2 {
     font-size: 1em;
     font-weight: bold;
     line-height: 1.5em;
