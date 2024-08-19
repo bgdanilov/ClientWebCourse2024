@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 100%;
+    line-height: 1em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+.wrapper {
+    max-width: 400px;
+    margin: 15px auto 0 auto;
+}
+
+.wrapper h1 {
+    font-size: 2em;
+    line-height: 1.2em;
+    margin: 0 0 0.3em 0;
+}
+
+.converter {
+    background-color: #99cccc;
+    padding: 15px;
+}
+
+.converter_row {
+    margin: 0 0 1em 0;
+}
+
+.converter_row:last-child {
+    margin: 0;
+}
+
+.converter_row::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.wide {
+    overflow: hidden;
+}
+
+.converter_row label {
+    display: block;
+    font-size: 1.5em;
+    line-height: 1.2em;
+    margin: 0 0 0.2em 0;
+}
+
+.converter_row p.red {
+    display: block;
+    line-height: 2em;
+    color: #cc0033;
+    font-weight: bold;
+    display: none;
+}
+
+.converter_row input.temperature {
+    display: block;
+    padding: 0 0.5em;
+    font-size: 1.5em;
+    line-height:  2em;
+    width: 100%;
+    background-color: #ccffff;
+    border: none;
+}
+
+.converter_row:first-child input.temperature {
+    background-color: #fff;
+}
+
+.converter_row input.temperature:focus {
+    outline: 1px solid #006666;
+    outline-offset: 0;
+}
+
+.converter_row input.red {
+    outline: 1px solid #cc0033;
+    outline-offset: 0;
+    color: #cc0033;
+}
+
+input.convert_button {
+    width: auto;
+    padding: 0.5em 0.8em;
+    float: right;
+    background-color: #339999;
+    border: 1px solid #006666;
+    color: #FFF;
+    font-weight: bold;
+}

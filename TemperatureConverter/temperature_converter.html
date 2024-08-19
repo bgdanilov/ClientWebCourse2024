@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="utf-8">
+    <title>Конвертер температур.</title>
+    <script defer src="temperature_converter.js"></script>
+    <link href="reset.css" rel="stylesheet">
+    <link href="temperature_converter_style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Конвертер температуры</h1>
+
+        <div class="converter">
+            <div class="converter_row">
+                <label for="celsius">Температура в С:</label>
+                <input id="celsius" class="temperature">
+                <p class="red">Введите число!</p>
+            </div>
+
+            <div class="converter_row">
+                <label>Температура в K:</label>
+                <input id="kelvins" class="temperature" disabled>
+            </div>
+
+            <div class="converter_row">
+                <label>Температура в F:</label>
+                <input id="fahrenheits" class="temperature" disabled>
+            </div>
+
+            <div class="converter_row">
+                <input class="convert_button" type="button" value="Конвертировать">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
