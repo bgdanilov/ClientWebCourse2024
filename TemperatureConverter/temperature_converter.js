@@ -1,32 +1,30 @@
 "use strict";
 
-const errorElement = document.querySelector(".red"); // берем элемент ошибки;
-const convertButton = document.querySelector(".convert_button"); // берем кнопку конвертации;
+document.addEventListener("DOMContentLoaded", function () {
+    const converterForm = document.getElementById("converter_form");
+    const errorElement = document.querySelector(".error"); // берем элемент ошибки;
 
-const celsiusField = document.getElementById("celsius");
-const kelvinsField = document.getElementById("kelvins");
-const fahrenheitsField = document.getElementById("fahrenheits");
+    const celsiusField = document.getElementById("celsius");
+    const kelvinsField = document.getElementById("kelvins");
+    const fahrenheitsField = document.getElementById("fahrenheits");
 
-(function () {
-    document.addEventListener("DOMContentLoaded", function () {
-        celsiusField.addEventListener("click", function (e) {
-            errorElement.style.display = 'none'; // обнуление предыдущей ошибки;
-            celsiusField.className = "temperature";
-        });
+    converterForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // чтобы не перезагружалась страница.
 
-        convertButton.addEventListener("click", function (e) {
-            const celsius = parseFloat(celsiusField.value);
+        const celsius = parseFloat(celsiusField.value.trim());
+        celsiusField.classList.remove("red");
+        errorElement.style.display = 'none'; // обнуление предыдущей ошибки;
 
-            if (isNumber(celsius)) {
-                kelvinsField.value = getKelvins(celsius);
-                fahrenheitsField.value = getFahrenheits(celsius);
-            } else {
-                celsiusField.className = "temperature red";
-                errorElement.style.display = 'block';
-            };
-        });
+        if (isNumber(celsius)) {
+            kelvinsField.value = getKelvins(celsius);
+            fahrenheitsField.value = getFahrenheits(celsius);
+            return;
+        };
+
+        celsiusField.classList.add("red");
+        errorElement.style.display = 'block';
     });
-})();
+});
 
 function getKelvins(celsius) {
     return celsius + 273.15;

@@ -38,10 +38,6 @@ body {
     clear: both;
 }
 
-.wide {
-    overflow: hidden;
-}
-
 .converter_row label {
     display: block;
     font-size: 1.5em;
@@ -49,7 +45,7 @@ body {
     margin: 0 0 0.2em 0;
 }
 
-.converter_row p.red {
+.converter_row p.error {
     display: block;
     line-height: 2em;
     color: #cc0033;
@@ -64,25 +60,18 @@ body {
     line-height:  2em;
     width: 100%;
     background-color: #ccffff;
-    border: none;
 }
 
 .converter_row:first-child input.temperature {
     background-color: #fff;
 }
 
-.converter_row input.temperature:focus {
-    outline: 1px solid #006666;
-    outline-offset: 0;
-}
-
 .converter_row input.red {
-    outline: 1px solid #cc0033;
+    outline: 2px solid #cc0033;
     outline-offset: 0;
-    color: #cc0033;
 }
 
-input.convert_button {
+button.convert_button {
     width: auto;
     padding: 0.5em 0.8em;
     float: right;

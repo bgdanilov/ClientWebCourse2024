@@ -12,25 +12,24 @@
         <h1>Конвертер температуры</h1>
 
         <div class="converter">
-            <div class="converter_row">
-                <label for="celsius">Температура в С:</label>
-                <input id="celsius" class="temperature">
-                <p class="red">Введите число!</p>
-            </div>
-
-            <div class="converter_row">
-                <label>Температура в K:</label>
-                <input id="kelvins" class="temperature" disabled>
-            </div>
-
-            <div class="converter_row">
-                <label>Температура в F:</label>
-                <input id="fahrenheits" class="temperature" disabled>
-            </div>
-
-            <div class="converter_row">
-                <input class="convert_button" type="button" value="Конвертировать">
-            </div>
+            <form id="converter_form">
+                <div class="converter_row">
+                    <label for="celsius">Температура в С:</label>
+                    <input id="celsius" class="temperature">
+                    <p class="error">Введите число!</p>
+                </div>
+                <div class="converter_row">
+                    <label>Температура в K:</label>
+                    <input id="kelvins" class="temperature" disabled>
+                </div>
+                <div class="converter_row">
+                    <label>Температура в F:</label>
+                    <input id="fahrenheits" class="temperature" disabled>
+                </div>
+                <div class="converter_row">
+                    <button class="convert_button">Конвертировать</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>
