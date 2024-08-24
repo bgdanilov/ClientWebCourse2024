@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setViewMode();
 
-        todoList.append(todoItem);
+        todoList.prepend(todoItem);
         newTodoField.value = "";
     });
 });
