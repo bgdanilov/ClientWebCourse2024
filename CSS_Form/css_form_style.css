@@ -21,7 +21,7 @@ body {
 .page_header h1 {
     font-size: 1.75em;
     line-height: 1.2em;
-    margin: 0 0 0.2em 0;
+    margin: 0 0 0.2em;
 }
 
 .content {
@@ -31,7 +31,7 @@ body {
 
 .form_row {
     font-size: 0.875em;
-    margin: 0 0 1.143em 0;
+    margin: 0 0 1.143em;
 }
 
 .form_row label,
@@ -43,7 +43,7 @@ body {
 
 .form_row label {
     font-weight: bold;
-    margin: 0 0 0.572em 0;
+    margin: 0 0 0.572em;
 }
 
 .form_row input,
@@ -66,7 +66,7 @@ body {
 }
 
 .form_row p {
-    margin: 0 0 0.572em 0;
+    margin: 0 0 0.572em;
 }
 
 .button {
