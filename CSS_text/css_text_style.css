@@ -36,19 +36,19 @@ body {
     font-weight: bold;
     line-height: 1.5em;
     color: #4286A9;
-    margin: 0 0 0.3em 0;
+    margin: 0 0 0.3em;
 }
 
 .content p {
     font-size: 0.95em;
     line-height: 1.5em;
     text-align: justify;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em ;
     text-indent: 1em;
 }
 
 .preview p {
     font-size: 1em;
-    margin: 0 0 0.3em 0;
+    margin: 0 0 0.3em;
     text-indent: 0;
 }
