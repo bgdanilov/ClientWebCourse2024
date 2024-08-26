@@ -6,7 +6,7 @@ body {
     font-size: 100%;
     line-height: 1em;
     color: #0E0300;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .wrapper {
@@ -14,32 +14,35 @@ body {
     margin: 0 auto;
 }
 
-table {
+table.simple_table {
     width: 100%;
     font-size: 1.25em;
     line-height: 1.25em;
     text-align: left;
 }
 
-table, tr, th, td {
+table.simple_table,
+table.simple_table tr,
+table.simple_table th,
+table.simple_table td {
     border-collapse: collapse;
     border: solid 1px #CFCFCF;
 }
 
-table th {
-    padding: 0.75em 0.55em 0.4em 0.55em;
+table.simple_table th {
+    padding: 0.75em 0.55em 0.4em;
 }
 
-table td {
-    padding: 0.663em 0.5em 0.663em 0.5em;
+table.simple_table td {
+    padding: 0.663em 0.5em 0.663em;
 }
 
-table thead th {
+table.simple_table thead th {
     background-color: #3698D9;
     color: #F5FFF5;
     font-weight: normal;
 }
 
-table tr:nth-child(odd) td {
+table.simple_table tr:nth-child(odd) td {
     background-color: #EEE;
 }
