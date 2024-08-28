@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let findedContacts = allContacts.filter(e => (e.firstName.indexOf(wantedString) === 0 || e.lastName.indexOf(wantedString) === 0));
         
         printContacts(findedContacts);
-        console.log(findedContacts);
+        viewContact(findedContacts, findedContacts[0].phone);
     });
  
     contactForm.addEventListener("submit", function (e) {
