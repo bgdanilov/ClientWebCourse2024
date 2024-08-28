@@ -185,7 +185,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function deleteContact(id) {
-        allContacts.splice(id, 1);
+        let deletedIndex = allContacts.findIndex(item => item.phone === id);
+        allContacts.splice(deletedIndex, 1);
         resetForm();
         printContacts(allContacts);
     }
