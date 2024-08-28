@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="utf-8">
+    <title>Телефонная книга.</title>
+    <script defer src="phone_book.js"></script>
+    <link href="reset.css" rel="stylesheet">
+    <link href="phone_book_style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="left_column">
+            <div class="find_row">
+                <input id="find" placeholder="Поиск">
+            </div>
+            <ul class="contact_list">
+            </ul>
+        </div>
+        <div class="right_column">
+            <form class="contact_form" id="contact_form">
+                <div class="form_row">
+                    <label>
+                        <span>имя:</span>
+                        <input id="firstName" placeholder="Имя">
+                    </label>
+                </div>
+                <div class="form_row">
+                    <label>
+                        <span>фамилия:</span>
+                        <input id="lastName" placeholder="Фамилия">
+                    </label>
+                </div>
+                <div class="form_row">
+                    <label>
+                        <span>телефон:</span>
+                        <input id="phone" type="tel" placeholder="Телефон">
+                    </label>
+                </div>
+                <div class="form_buttons_row">
+                    <input class="new_button none" name="2" type="button" value="Новый">
+                    <input class="delete_button none" name="5" type="button" value="Удалить">
+                    <input class="add_button to_right none" name="1" type="button" value="Добавить">
+                    <input class="save_button to_right none" name="3" type="button" value="Готово">
+                    <input class="edit_button to_right none" name="4" type="button" value="Редактировать">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

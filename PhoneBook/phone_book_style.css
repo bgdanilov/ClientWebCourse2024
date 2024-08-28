@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 100%;
+    line-height: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #70635D;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.left_column {
+    width: 40%;
+    padding: 15px 0;
+    background-color:blanchedalmond;
+}
+
+.right_column {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    padding: 15px;
+    background-color:azure;
+}
+
+.find_row {
+    padding: 0 15px 1em 2em;
+}
+
+.find_row input {
+    width: 100%;
+    background-color: #fff;
+    padding: 0.5em 1em;
+    border: 1px solid #70635D;
+}
+
+.contact_list li {
+    padding: 0.2em 0.5em 0.2em 2em;
+    cursor: pointer;
+}
+
+.contact_list li.selected {
+    background-color: #123c69;
+    color: #eee2dc;
+}
+
+.contact_form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.form_row {
+    margin: 0 0 15px 0;
+}
+
+.form_row label {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.form_row label span {
+    width: 100px;
+    line-height: 1.2em;
+    padding: 0.5em 10px 0.5em 0;
+    text-align: right;
+}
+
+.form_row label input {
+    flex-grow: 1;
+    min-width: 0;
+    background-color: #fff;
+    padding: 0.5em 1em;
+    border: 1px solid #70635D;
+}
+
+.form_row label input.view {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #70635D;;
+}
+
+.form_row label input.invalid {
+    outline: 2px solid #ac3b61;
+    outline-offset: 0;
+    border: 1px solid transparent;
+}
+
+.form_row label input.invalid::placeholder {
+    color: #ac3b61;
+}
+
+.form_buttons_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding: 1em 0 0 0;
+}
+
+.form_buttons_row input {
+    color: #eee2dc;
+    background-color: #123c69;
+    padding: 0.5em 0.8em;
+    cursor: pointer;
+}
+
+.form_buttons_row input.to_right {
+    margin-left: auto;
+}
+
+.form_buttons_row input.none {
+    display: none;
+}
