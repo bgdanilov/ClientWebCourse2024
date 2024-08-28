@@ -25,27 +25,27 @@ document.addEventListener("DOMContentLoaded", function () {
         {
             firstName: "Ivan",
             lastName: "Ivanov",
-            phone: "345525325342"
+            phone: "345525342"
         },
         {
             firstName: "Ivan",
             lastName: "Petrov",
-            phone: "345525325342"
+            phone: "345342"
         },
         {
             firstName: "Valily",
             lastName: "Ignatiev",
-            phone: "345525325342"
+            phone: "3-5325342"
         },
         {
             firstName: "Petr",
             lastName: "Ivanov",
-            phone: "345525325342"
+            phone: "3435-325342"
         },
         {
             firstName: "Ivan",
             lastName: "Ivanov",
-            phone: "353534534"
+            phone: "3545 5334534"
         },
         {
             firstName: "Konstantin",
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     contactItem.classList.add("selected");
-                    viewContact(array, i);
+                    viewContact(array, array[i].phone);
                 });
             }
         }
@@ -153,9 +153,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         };
 
-        allContacts[editedId].firstName = firstNameField.value;
-        allContacts[editedId].lastName = lastNameField.value;
-        allContacts[editedId].phone = phoneField.value;
+        let editedContact = allContacts.find(item => item.phone === editedId);
+
+        editedContact.firstName = firstNameField.value;
+        editedContact.lastName = lastNameField.value;
+        editedContact.phone = phoneField.value;
         viewContact(allContacts, editedId);
         printContacts(allContacts);
     }
@@ -206,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneField.classList.remove("view");
     }
 
-    function viewContact(array, id) {
+    function viewContact(array, phone) {
         addButton.classList.add("none");
         newButton.classList.remove("none");
         editButton.classList.remove("none");
@@ -225,11 +227,15 @@ document.addEventListener("DOMContentLoaded", function () {
         lastNameField.classList.remove("invalid");
         phoneField.classList.remove("invalid");
 
-        firstNameField.value = array[id].firstName;
-        lastNameField.value = array[id].lastName;
-        phoneField.value = array[id].phone;
+        let viewedContact = array.filter(e => (e.phone === phone));
 
-        editedId = id;
+        firstNameField.value = viewedContact[0].firstName;
+        lastNameField.value = viewedContact[0].lastName;
+        phoneField.value = viewedContact[0].phone;
+
+        console.log(viewedContact);
+
+        editedId = phone;
     }
 
     function isFieldsEmpty(field1Value, field2Value, field3Value) {
