@@ -9,11 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const lastNameField = document.getElementById("lastName");
     const phoneField = document.getElementById("phone");
 
-    const addButton = contactForm.querySelector(".add_button");
-    const newButton = contactForm.querySelector(".new_button");
-    const saveButton = contactForm.querySelector(".save_button");
-    const editButton = contactForm.querySelector(".edit_button");
-    const deleteButton = contactForm.querySelector(".delete_button");
+    const addButton = document.getElementById("add_button");
+    const newButton = document.getElementById("new_button");
+    const saveButton = document.getElementById("save_button");
+    const editButton = document.getElementById("edit_button");
+    const deleteButton = document.getElementById("delete_button");
 
     const contactList = document.querySelector(".contact_list");
 
@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     addButton.setAttribute("type", "submit");
 
-    addButton.classList.remove("none");
     newButton.classList.add("none");
     editButton.classList.add("none");
     deleteButton.classList.add("none");
@@ -81,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
             || e.lastName.toLowerCase().indexOf(wantedString) === 0));
 
         printContacts(findedContactsArray);
-        viewContact(findedContactsArray, findedContactsArray[0].phone);
     });
 
     contactForm.addEventListener("submit", function (e) {
@@ -250,26 +248,20 @@ document.addEventListener("DOMContentLoaded", function () {
     function isFieldsEmpty(field1Value, field2Value, field3Value) {
         if (field1Value.length === 0) {
             firstNameField.classList.add("invalid");
-            firstNameField.placeholder = "Введите имя!";
         } else {
             firstNameField.classList.remove("invalid");
-            firstNameField.placeholder = "Имя";
         }
 
         if (field2Value.length === 0) {
             lastNameField.classList.add("invalid");
-            lastNameField.placeholder = "Введите фамилию!";
         } else {
             lastNameField.classList.remove("invalid");
-            lastNameField.placeholder = "Фамилия";
         }
 
         if (field3Value.length === 0) {
             phoneField.classList.add("invalid");
-            phoneField.placeholder = "Введите телефон!";
         } else {
             phoneField.classList.remove("invalid");
-            phoneField.placeholder = "Телефон";
         }
 
         if (field1Value.length === 0 || field2Value.length === 0 || field3Value.length === 0) {

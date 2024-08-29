@@ -6,20 +6,21 @@ body {
     font-size: 100%;
     line-height: 1em;
     font-family: Helvetica, Arial, sans-serif;
-    color: #70635D;
+    color: #333;
 }
 
 .wrapper {
     display: flex;
     flex-direction: row;
     max-width: 800px;
+    height: 100vh;
     margin: 0 auto;
 }
 
 .left_column {
     width: 40%;
     padding: 15px 0;
-    background-color:blanchedalmond;
+    background: linear-gradient(45deg, rgb(132, 206, 203) 13%, rgb(193, 200, 228) 97%);
 }
 
 .right_column {
@@ -27,18 +28,11 @@ body {
     flex-direction: column;
     width: 60%;
     padding: 15px;
-    background-color:azure;
+    background-color: #eaf6fb;
 }
 
-.search_row {
+.search {
     padding: 0 15px 1em 2em;
-}
-
-.search_row input {
-    width: 100%;
-    background-color: #fff;
-    padding: 0.5em 1em;
-    border: 1px solid #AEABA8;
 }
 
 .contact_list li {
@@ -48,7 +42,7 @@ body {
 
 .contact_list li.selected {
     background-color: #123c69;
-    color: #eee2dc;
+    color: #eaf6fb;
 }
 
 .contact_form {
@@ -57,54 +51,67 @@ body {
     height: 100%;
 }
 
-.form_row {
+.input_row {
     margin: 0 0 15px 0;
 }
 
-.form_row label {
+.input_row label {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
 }
 
-.form_row label span {
+.input_row span {
     width: 100px;
     line-height: 1.2em;
+    color: #666;
     padding: 0.5em 10px 0.5em 0;
     text-align: right;
 }
 
-.form_row label input {
+.search input, .input_row input {
+    background-color: #fff;
+    border: 1px solid #666;
+    color: #666;
+    padding: 0.5em 1em;
+    border-radius: 3px;
+}
+
+.search input {
+    width: 100%;
+}
+
+.input_row input {
     flex-grow: 1;
     min-width: 0;
-    background-color: #fff;
-    padding: 0.5em 1em;
-    border: 1px solid #AEABA8;
 }
 
-.form_row label input:focus {
-    outline: 2px solid #AEABA8;
+.search input:focus, .input_row input:focus{
+    border: 1px solid transparent;
+    outline: 2px solid #123c69;
     outline-offset: 0;
 }
 
-.form_row label input.view {
+.input_row input.view {
     background-color: transparent;
     border: 1px solid transparent;
-    border-bottom: 1px solid #AEABA8;
+    border-bottom: 1px solid #666;
+    border-radius: 0;
+    color: #333;
 }
 
-.form_row label input.invalid {
-    outline: 2px solid #ac3b61;
+.input_row input.invalid {
+    outline: 2px solid #8860d0;
     outline-offset: 0;
     border: 1px solid transparent;
 }
 
-.form_row label input.invalid::placeholder {
-    color: #ac3b61;
+.input_row input.invalid::placeholder {
+    color: #8860d0;
 }
 
-.form_buttons_row {
+.buttons_row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -112,17 +119,18 @@ body {
     padding: 1em 0 0 0;
 }
 
-.form_buttons_row input {
-    color: #eee2dc;
-    background-color: #123c69;
+.buttons_row input {
+    color: #eaf6fb;
+    background-color: #144477;
     padding: 0.5em 0.8em;
+    border-radius: 3px;
     cursor: pointer;
 }
 
-.form_buttons_row input.to_right {
+.buttons_row input.to_right {
     margin-left: auto;
 }
 
-.form_buttons_row input.none {
+.buttons_row input.none {
     display: none;
 }
