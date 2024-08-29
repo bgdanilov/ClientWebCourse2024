@@ -32,8 +32,24 @@ body {
 }
 
 .search {
-    padding: 0 15px 1em 2em;
+    position: relative;
+    padding: 0 15px;
+    margin: 0 0 1em 0;
 }
+
+.material-icons {
+    position: absolute;
+    right: 23px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    cursor: pointer;
+}
+
+.icon_size_30 {
+    font-size: 20px !important;
+}
+
 
 .contact_list li {
     padding: 0.2em 0.5em 0.2em 2em;
@@ -80,6 +96,7 @@ body {
 
 .search input {
     width: 100%;
+    padding: 0.5em 2em 0.5em 1em;
 }
 
 .input_row input {
@@ -107,7 +124,7 @@ body {
     border: 1px solid transparent;
 }
 
-.input_row input.invalid::placeholder {
+.input_row input.invalid, .input_row input.invalid::placeholder {
     color: #8860d0;
 }
 
@@ -131,6 +148,6 @@ body {
     margin-left: auto;
 }
 
-.buttons_row input.none {
+.buttons_row .none, .search i.none {
     display: none;
 }

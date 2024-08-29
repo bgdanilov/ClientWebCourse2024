@@ -17,11 +17,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const contactList = document.querySelector(".contact_list");
 
+    const cancelIcon = document.getElementById("cancel_search");
+
+    console.log(cancelIcon);
+
     let allContactsArray = [
         {
             firstName: "Boris",
             lastName: "Danilov",
-            phone: "12132425"
+            phone: "121"
         },
         {
             firstName: "Ivan",
@@ -68,11 +72,14 @@ document.addEventListener("DOMContentLoaded", function () {
     editButton.classList.add("none");
     deleteButton.classList.add("none");
     saveButton.classList.add("none");
+    cancelIcon.classList.add("none");
 
     let wantedString;
     let findedContactsArray;
 
     searchField.addEventListener("input", function () {
+        cancelIcon.classList.remove("none");
+
         wantedString = searchField.value.trim().toLowerCase();
 
         findedContactsArray = allContactsArray.filter(e =>
@@ -80,6 +87,12 @@ document.addEventListener("DOMContentLoaded", function () {
             || e.lastName.toLowerCase().indexOf(wantedString) === 0));
 
         printContacts(findedContactsArray);
+    });
+
+    cancelIcon.addEventListener("click", function() {
+        searchField.value = "";
+        cancelIcon.classList.add("none");
+        printContacts(allContactsArray);
     });
 
     contactForm.addEventListener("submit", function (e) {
@@ -142,6 +155,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         };
 
+        if (isPhoneExist(phone)) {
+            phoneField.classList.add("invalid");
+            return;
+        }
+
         let contact = {
             firstName: firstName,
             lastName: lastName,
@@ -158,6 +176,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         };
 
+        if (isPhoneExist(phoneField.value) && phoneField.value !== phoneOfEditedContact) {
+            phoneField.classList.add("invalid");
+            return;
+        }
+
         let editedContact = allContactsArray.find(item => item.phone === phoneOfEditedContact);
 
         editedContact.firstName = firstNameField.value;
@@ -166,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         phoneOfEditedContact = phoneField.value;
 
+        resetForm();
         viewContact(allContactsArray, phoneOfEditedContact);
         printContacts(allContactsArray);
     }
@@ -186,6 +210,8 @@ document.addEventListener("DOMContentLoaded", function () {
         firstNameField.classList.remove("view", "invalid");
         lastNameField.classList.remove("view", "invalid");
         phoneField.classList.remove("view", "invalid");
+
+        phoneField.placeholder = "введите телефон";
 
         firstNameField.value = "";
         lastNameField.value = "";
@@ -267,6 +293,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (field1Value.length === 0 || field2Value.length === 0 || field3Value.length === 0) {
             return true;
         }
+    }
+
+    function isPhoneExist(phone) {
+        return allContactsArray.find(item => item.phone.trim() === phone);
     }
 
     printContacts(allContactsArray);
