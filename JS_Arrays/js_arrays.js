@@ -1,15 +1,15 @@
 "use strict";
 
 (function () {
-    function getDescendingSortedArray(array) {
+    function getDescendingSortedArray(arrayOfNumbers) {
         return array.slice().sort((e1, e2) => e2 - e1);
     }
 
-    function getFirstFiveNumbers(array) {
+    function getFirstFiveItems(array) {
         return array.slice(0, 5);
     }
 
-    function getLastFiveNumbers(array) {
+    function getLastFiveItems(array) {
         return array.slice(-5);
     }
 
@@ -22,7 +22,7 @@
     }
 
     function getEvenNumbers(array) {
-        return array.filter(e => (e % 2 === 0));
+        return array.filter(e => e % 2 === 0);
     }
 
     // 1. Создайте массив чисел.
@@ -33,10 +33,10 @@
     console.log("Новый массив в порядке убывания: " + getDescendingSortedArray(array));
 
     // 1.2. Подмассив из первых 5 элементов.
-    console.log("Подмассив из первых 5 элементов: " + getFirstFiveNumbers(array));
+    console.log("Подмассив из первых 5 элементов: " + getFirstFiveItems(array));
 
     // 1.3. Подмассив из последних 5 элементов.
-    console.log("Подмассив из последних 5 элементов: " + getLastFiveNumbers(array));
+    console.log("Подмассив из последних 5 элементов: " + getLastFiveItems(array));
 
     // 1.4. Сумма элементов массива, которые являются четными числами.
     console.log("Сумма элементов массива, которые являются четными числами: " + getEvenNumbersSum(array));
