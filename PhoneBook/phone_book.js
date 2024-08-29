@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contact_form");
 
-    const findField = document.getElementById("find");
+    const searchField = document.getElementById("search");
 
     const firstNameField = document.getElementById("firstName");
     const lastNameField = document.getElementById("lastName");
@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const deleteButton = contactForm.querySelector(".delete_button");
 
     const contactList = document.querySelector(".contact_list");
-    let allContacts = [
+
+    let allContactsArray = [
         {
             firstName: "Boris",
             lastName: "Danilov",
@@ -59,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     ];
 
-    let editedId;
+    let phoneOfEditedContact;
 
     addButton.setAttribute("type", "submit");
 
@@ -69,14 +70,20 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteButton.classList.add("none");
     saveButton.classList.add("none");
 
-    findField.addEventListener("input", function() {
-        let wantedString = findField.value.trim();
-        let findedContacts = allContacts.filter(e => (e.firstName.indexOf(wantedString) === 0 || e.lastName.indexOf(wantedString) === 0));
-        
-        printContacts(findedContacts);
-        viewContact(findedContacts, findedContacts[0].phone);
+    let wantedString;
+    let findedContactsArray;
+
+    searchField.addEventListener("input", function () {
+        wantedString = searchField.value.trim().toLowerCase();
+
+        findedContactsArray = allContactsArray.filter(e =>
+        (e.firstName.toLowerCase().indexOf(wantedString) === 0
+            || e.lastName.toLowerCase().indexOf(wantedString) === 0));
+
+        printContacts(findedContactsArray);
+        viewContact(findedContactsArray, findedContactsArray[0].phone);
     });
- 
+
     contactForm.addEventListener("submit", function (e) {
         e.preventDefault(); // чтобы не перезагружалась страница.
         addNewContact();
@@ -91,18 +98,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     deleteButton.addEventListener("click", function () {
-        deleteContact(editedId);
+        deleteContact(phoneOfEditedContact);
     });
 
     editButton.addEventListener("click", function () {
         editContact();
     });
 
-    function printContacts(array) {
+    function printContacts(contactsArray) {
         contactList.innerHTML = ''; // обнуление списка;
 
-        if (array.length !== 0) {
-            for (let i in array) {
+        if (contactsArray.length !== 0) {
+            for (let contact in contactsArray) {
                 const contactItem = document.createElement("li");
                 contactItem.innerHTML = `
                 <span class="contact_item_name"></span>
@@ -111,18 +118,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 contactList.append(contactItem);
 
                 contactItem.querySelector(".contact_item_name")
-                    .textContent = `${array[i]["lastName"]} ${array[i]["firstName"]}`;
+                    .textContent = `${contactsArray[contact]["lastName"]} ${contactsArray[contact]["firstName"]}`;
 
                 // Навешиваем редактирование.
                 contactItem.querySelector(".contact_item_name").addEventListener("click", function () {
-                    let selected = contactList.querySelectorAll("ul > li");
+                    let selectedContactItems = contactList.querySelectorAll("ul > li");
 
-                    for (let item of selected) {
+                    for (let item of selectedContactItems) {
                         item.classList.remove("selected");
                     }
 
                     contactItem.classList.add("selected");
-                    viewContact(array, array[i].phone);
+                    viewContact(contactsArray, contactsArray[contact].phone);
                 });
             }
         }
@@ -143,9 +150,9 @@ document.addEventListener("DOMContentLoaded", function () {
             phone: phone
         };
 
-        allContacts.push(contact);
+        allContactsArray.push(contact);
         resetForm();
-        printContacts(allContacts);
+        printContacts(allContactsArray);
     }
 
     function saveContact() {
@@ -153,13 +160,16 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         };
 
-        let editedContact = allContacts.find(item => item.phone === editedId);
+        let editedContact = allContactsArray.find(item => item.phone === phoneOfEditedContact);
 
         editedContact.firstName = firstNameField.value;
         editedContact.lastName = lastNameField.value;
         editedContact.phone = phoneField.value;
-        viewContact(allContacts, editedId);
-        printContacts(allContacts);
+
+        phoneOfEditedContact = phoneField.value;
+
+        viewContact(allContactsArray, phoneOfEditedContact);
+        printContacts(allContactsArray);
     }
 
     function resetForm() {
@@ -184,11 +194,11 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneField.value = "";
     }
 
-    function deleteContact(id) {
-        let deletedIndex = allContacts.findIndex(item => item.phone === id);
-        allContacts.splice(deletedIndex, 1);
+    function deleteContact(phone) {
+        let deletedContactIndex = allContactsArray.findIndex(item => item.phone === phone);
+        allContactsArray.splice(deletedContactIndex, 1);
         resetForm();
-        printContacts(allContacts);
+        printContacts(allContactsArray);
     }
 
     function editContact() {
@@ -209,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneField.classList.remove("view");
     }
 
-    function viewContact(array, phone) {
+    function viewContact(contactsArray, phone) {
         addButton.classList.add("none");
         newButton.classList.remove("none");
         editButton.classList.remove("none");
@@ -228,15 +238,13 @@ document.addEventListener("DOMContentLoaded", function () {
         lastNameField.classList.remove("invalid");
         phoneField.classList.remove("invalid");
 
-        let viewedContact = array.filter(e => (e.phone === phone));
+        let viewedContact = contactsArray.filter(e => e.phone === phone);
 
         firstNameField.value = viewedContact[0].firstName;
         lastNameField.value = viewedContact[0].lastName;
         phoneField.value = viewedContact[0].phone;
 
-        console.log(viewedContact);
-
-        editedId = phone;
+        phoneOfEditedContact = phone;
     }
 
     function isFieldsEmpty(field1Value, field2Value, field3Value) {
@@ -269,5 +277,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    printContacts(allContacts);
+    printContacts(allContactsArray);
 });

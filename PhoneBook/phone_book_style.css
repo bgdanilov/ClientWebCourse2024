@@ -30,15 +30,15 @@ body {
     background-color:azure;
 }
 
-.find_row {
+.search_row {
     padding: 0 15px 1em 2em;
 }
 
-.find_row input {
+.search_row input {
     width: 100%;
     background-color: #fff;
     padding: 0.5em 1em;
-    border: 1px solid #70635D;
+    border: 1px solid #AEABA8;
 }
 
 .contact_list li {
@@ -80,13 +80,18 @@ body {
     min-width: 0;
     background-color: #fff;
     padding: 0.5em 1em;
-    border: 1px solid #70635D;
+    border: 1px solid #AEABA8;
+}
+
+.form_row label input:focus {
+    outline: 2px solid #AEABA8;
+    outline-offset: 0;
 }
 
 .form_row label input.view {
     background-color: transparent;
     border: 1px solid transparent;
-    border-bottom: 1px solid #70635D;;
+    border-bottom: 1px solid #AEABA8;
 }
 
 .form_row label input.invalid {
