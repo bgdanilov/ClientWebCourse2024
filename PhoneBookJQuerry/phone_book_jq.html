@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+    <meta charset="utf-8">
+    <title>Телефонная книга.</title>
+    <script defer src="jquery-3.7.1.js"></script>
+    <script defer src="phone_book_jq.js"></script>
+    <link href="reset.css" rel="stylesheet">
+    <link href="phone_book_style_jq.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="left_column">
+            <div class="search">
+                <input id="search" placeholder="Поиск">
+                <i id="cancel_search" class="material-icons icon_size_30">cancel</i>
+            </div>
+            <ul class="contact_list">
+            </ul>
+        </div>
+        <div class="right_column">
+            <form class="contact_form" id="contact_form">
+                <div class="input_row">
+                    <label>
+                        <span>имя:</span>
+                        <input id="firstName" placeholder="введите имя">
+                    </label>
+                </div>
+                <div class="input_row">
+                    <label>
+                        <span>фамилия:</span>
+                        <input id="lastName" placeholder="введите фамилию">
+                    </label>
+                </div>
+                <div class="input_row">
+                    <label>
+                        <span>телефон:</span>
+                        <input id="phone" type="tel" placeholder="введите телефон">
+                    </label>
+                </div>
+                <div class="buttons_row">
+                    <input id="new_button" type="button" value="Новый">
+                    <input id="delete_button" type="button" value="Удалить">
+                    <input id="add_button" class="to_right" type="button" name="add" value="Добавить">
+                    <input id="save_button" class="to_right" type="button" name="save" value="Готово">
+                    <input id="edit_button" class="to_right" type="button" value="Редактировать">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
