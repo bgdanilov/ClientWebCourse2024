@@ -2,8 +2,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contact_form");
-
     const searchField = document.getElementById("search");
+    const cancelIcon = document.getElementById("cancel_search");
 
     const firstNameField = document.getElementById("firstName");
     const lastNameField = document.getElementById("lastName");
@@ -16,10 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const deleteButton = document.getElementById("delete_button");
 
     const contactList = document.querySelector(".contact_list");
-
-    const cancelIcon = document.getElementById("cancel_search");
-
-    console.log(cancelIcon);
 
     let allContactsArray = [
         {
@@ -64,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     ];
 
-    let phoneOfEditedContact;
+    let phoneOfSelectedContact;
 
     addButton.setAttribute("type", "submit");
 
@@ -74,24 +70,24 @@ document.addEventListener("DOMContentLoaded", function () {
     saveButton.classList.add("none");
     cancelIcon.classList.add("none");
 
-    let wantedString;
+    let searchString;
     let findedContactsArray;
 
     searchField.addEventListener("input", function () {
         cancelIcon.classList.remove("none");
 
-        wantedString = searchField.value.trim().toLowerCase();
+        searchString = searchField.value.trim().toLowerCase();
 
         findedContactsArray = allContactsArray.filter(e =>
-        (e.firstName.toLowerCase().indexOf(wantedString) === 0
-            || e.lastName.toLowerCase().indexOf(wantedString) === 0));
+        (e.firstName.toLowerCase().indexOf(searchString) === 0
+            || e.lastName.toLowerCase().indexOf(searchString) === 0));
+
 
         printContacts(findedContactsArray);
     });
 
-    cancelIcon.addEventListener("click", function() {
-        searchField.value = "";
-        cancelIcon.classList.add("none");
+    cancelIcon.addEventListener("click", function () {
+        resetSearch();
         printContacts(allContactsArray);
     });
 
@@ -101,6 +97,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     newButton.addEventListener("click", function () {
+        const selectedContactItem = contactList.querySelector("ul > li.selected");
+
+        if (selectedContactItem !== null) {
+            selectedContactItem.classList.remove("selected");
+        }
+
+        phoneOfSelectedContact = null;
         resetForm();
     });
 
@@ -109,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     deleteButton.addEventListener("click", function () {
-        deleteContact(phoneOfEditedContact);
+        deleteContact(phoneOfSelectedContact);
     });
 
     editButton.addEventListener("click", function () {
@@ -122,17 +125,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (contactsArray.length !== 0) {
             for (let contact in contactsArray) {
                 const contactItem = document.createElement("li");
-                contactItem.innerHTML = `
-                <span class="contact_item_name"></span>
-            `;
-
                 contactList.append(contactItem);
 
-                contactItem.querySelector(".contact_item_name")
-                    .textContent = `${contactsArray[contact]["lastName"]} ${contactsArray[contact]["firstName"]}`;
+                contactItem.textContent
+                    = `${contactsArray[contact]["lastName"]} ${contactsArray[contact]["firstName"]}`;
+
+                if (contactsArray[contact]["phone"] === phoneOfSelectedContact) {
+                    contactItem.classList.add("selected");
+                }
 
                 // Навешиваем редактирование.
-                contactItem.querySelector(".contact_item_name").addEventListener("click", function () {
+                contactItem.addEventListener("click", function () {
                     let selectedContactItems = contactList.querySelectorAll("ul > li");
 
                     for (let item of selectedContactItems) {
@@ -141,6 +144,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     contactItem.classList.add("selected");
                     viewContact(contactsArray, contactsArray[contact].phone);
+
+                    phoneOfSelectedContact = contactsArray[contact].phone;
                 });
             }
         }
@@ -155,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         };
 
-        if (isPhoneExist(phone)) {
+        if (isPhoneAlreadyExist(phone)) {
             phoneField.classList.add("invalid");
             return;
         }
@@ -167,7 +172,13 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         allContactsArray.push(contact);
+
+        phoneOfSelectedContact = phone;
+
         resetForm();
+        resetSearch();
+
+        viewContact(allContactsArray, phoneOfSelectedContact);
         printContacts(allContactsArray);
     }
 
@@ -176,22 +187,20 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         };
 
-        if (isPhoneExist(phoneField.value) && phoneField.value !== phoneOfEditedContact) {
+        if (isPhoneAlreadyExist(phoneField.value) && phoneField.value !== phoneOfSelectedContact) {
             phoneField.classList.add("invalid");
             return;
         }
 
-        let editedContact = allContactsArray.find(item => item.phone === phoneOfEditedContact);
+        let editedContact = allContactsArray.find(item => item.phone === phoneOfSelectedContact);
 
         editedContact.firstName = firstNameField.value;
         editedContact.lastName = lastNameField.value;
         editedContact.phone = phoneField.value;
 
-        phoneOfEditedContact = phoneField.value;
+        phoneOfSelectedContact = phoneField.value;
 
-        resetForm();
-        viewContact(allContactsArray, phoneOfEditedContact);
-        printContacts(allContactsArray);
+        viewContact(allContactsArray, phoneOfSelectedContact);
     }
 
     function resetForm() {
@@ -211,16 +220,16 @@ document.addEventListener("DOMContentLoaded", function () {
         lastNameField.classList.remove("view", "invalid");
         phoneField.classList.remove("view", "invalid");
 
-        phoneField.placeholder = "введите телефон";
-
         firstNameField.value = "";
         lastNameField.value = "";
         phoneField.value = "";
     }
 
+    // Todo?
     function deleteContact(phone) {
         let deletedContactIndex = allContactsArray.findIndex(item => item.phone === phone);
         allContactsArray.splice(deletedContactIndex, 1);
+        resetSearch();
         resetForm();
         printContacts(allContactsArray);
     }
@@ -268,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
         lastNameField.value = viewedContact[0].lastName;
         phoneField.value = viewedContact[0].phone;
 
-        phoneOfEditedContact = phone;
+        phoneOfSelectedContact = phone;
     }
 
     function isFieldsEmpty(field1Value, field2Value, field3Value) {
@@ -295,8 +304,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function isPhoneExist(phone) {
+    function isPhoneAlreadyExist(phone) {
         return allContactsArray.find(item => item.phone.trim() === phone);
+    }
+
+    function resetSearch() {
+        searchField.value = "";
+        cancelIcon.classList.add("none");
     }
 
     printContacts(allContactsArray);

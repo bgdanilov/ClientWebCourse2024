@@ -55,6 +55,11 @@ body {
     padding: 0.2em 0.5em 0.2em 2em;
     cursor: pointer;
 }
+/*
+.contact_list li span {
+    display: block;
+    width: 100%;
+}*/
 
 .contact_list li.selected {
     background-color: #123c69;
