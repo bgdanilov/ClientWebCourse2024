@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     contactForm.addEventListener("submit", function (e) {
+        //console.log(e.submitter.value);
         e.preventDefault(); // чтобы не перезагружалась страница.
         addNewContact();
     });
@@ -152,9 +153,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function addNewContact() {
-        let firstName = firstNameField.value.trim();
-        let lastName = lastNameField.value.trim();
-        let phone = phoneField.value.trim();
+        const firstName = firstNameField.value.trim();
+        const lastName = lastNameField.value.trim();
+        const phone = phoneField.value.trim();
 
         if (isFieldsEmpty(firstName, lastName, phone)) {
             return;
