@@ -330,8 +330,3 @@ $(function () {
 
     printContacts(allContactsArray);
 });
-
-
-// Выбираю,например, все input.invalid:
-// $("input.invalid") - будет массив
-// как мне всем выбраннным навесить одинаковое событие?
