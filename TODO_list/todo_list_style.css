@@ -5,7 +5,7 @@
 body {
     font-size: 100%;
     line-height: 1em;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     color: #123c69;
 }
 
@@ -19,7 +19,7 @@ body {
 .todo_list h1 {
     font-size: 2em;
     line-height: 1.2em;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em;
     text-align: center;
 }
 
@@ -32,7 +32,7 @@ body {
 
 .new_todo_field, .edit_todo_field {
     display: block;
-    background-color: white;
+    background-color: #ffffff;
     padding: 0.5em 1em;
     flex-grow: 2;
 }
@@ -89,6 +89,18 @@ input.invalid::placeholder {
 .save_button {
     color: #eee2dc;
     background-color: #123c69;
+}
+
+.delete_button:hover {
+    background-color: #8c2849;
+}
+
+.edit_button:hover, .cancel_button:hover {
+    color: #8c2849;
+}
+
+.save_button:hover, .add_button:hover {
+    background-color: #0b2c4f;
 }
 
 .todo_list ul li::after {

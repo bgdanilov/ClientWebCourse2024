@@ -11,12 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let newTodoText = newTodoField.value.trim();
         newTodoField.classList.remove("invalid");
+        newTodoField.placeholder = "Текст заметки";
 
         if (newTodoText.length === 0) {
             newTodoField.classList.add("invalid");
             newTodoField.placeholder = "Введите текст заметки!";
             return;
-        };
+        }
 
         const todoItem = document.createElement("li");
 
@@ -37,11 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
             // Редактирование заметки.
             todoItem.querySelector(".edit_button").addEventListener("click", function () {
                 todoItem.innerHTML = `
-                <input class="edit_todo_field" type="text">
-                <button class="save_button">Сохранить</button>
-                <button class="cancel_button">Отмена</button>
-            `;
+                    <form class="edit_todo_form" id="edit_todo_form">
+                        <input class="edit_todo_field" type="text">
+                        <button class="save_button" type="submit">Сохранить</button>
+                        <button class="cancel_button" type="button">Отмена</button>
+                    </form>
+                `;
 
+                const editTodoForm = document.getElementById("edit_todo_form");
                 const editTodoField = todoItem.querySelector(".edit_todo_field");
                 editTodoField.value = newTodoText;
 
@@ -49,20 +53,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     setViewMode();
                 });
 
-                todoItem.querySelector(".save_button").addEventListener("click", function () {
-                    const temp = editTodoField.value;
+                editTodoForm.addEventListener("submit", function (e) {
+                    e.preventDefault(); // чтобы не перезагружалась страница.
+
+                    const temp = editTodoField.value.trim();
 
                     if (temp.length === 0) {
+                        editTodoField.value = "";
                         editTodoField.classList.add("invalid");
                         editTodoField.placeholder = "Введите текст заметки!";
                         return;
-                    };
+                    }
 
                     newTodoText = temp;
                     setViewMode();
                 });
             });
-        };
+        }
 
         setViewMode();
 
