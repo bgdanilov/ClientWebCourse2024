@@ -5,27 +5,27 @@
 body {
     font-size: 100%;
     line-height: 1em;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .wrapper {
     max-width: 400px;
-    margin: 15px auto 0 auto;
+    margin: 15px auto 0;
 }
 
 .wrapper h1 {
     font-size: 2em;
     line-height: 1.2em;
-    margin: 0 0 0.3em 0;
+    margin: 0 0 0.3em;
 }
 
 .converter {
-    background-color: #99cccc;
+    background-color: #9cc;
     padding: 15px;
 }
 
 .converter_row {
-    margin: 0 0 1em 0;
+    margin: 0 0 1em;
 }
 
 .converter_row:last-child {
@@ -42,13 +42,12 @@ body {
     display: block;
     font-size: 1.5em;
     line-height: 1.2em;
-    margin: 0 0 0.2em 0;
+    margin: 0 0 0.2em;
 }
 
 .converter_row p.error {
-    display: block;
     line-height: 2em;
-    color: #cc0033;
+    color: #c03;
     font-weight: bold;
     display: none;
 }
@@ -57,9 +56,9 @@ body {
     display: block;
     padding: 0 0.5em;
     font-size: 1.5em;
-    line-height:  2em;
+    line-height: 2em;
     width: 100%;
-    background-color: #ccffff;
+    background-color: #cff;
 }
 
 .converter_row:first-child input.temperature {
@@ -67,7 +66,7 @@ body {
 }
 
 .converter_row input.red {
-    outline: 2px solid #cc0033;
+    outline: 2px solid #c03;
     outline-offset: 0;
 }
 
@@ -75,8 +74,11 @@ button.convert_button {
     width: auto;
     padding: 0.5em 0.8em;
     float: right;
-    background-color: #339999;
-    border: 1px solid #006666;
-    color: #FFF;
+    background-color: #399;
+    color: #fff;
     font-weight: bold;
+}
+
+button.convert_button:hover {
+    background-color: #066;
 }

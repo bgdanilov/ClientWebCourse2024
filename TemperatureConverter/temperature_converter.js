@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const celsius = parseFloat(celsiusField.value.trim());
         celsiusField.classList.remove("red");
-        errorElement.style.display = 'none'; // обнуление предыдущей ошибки;
+        errorElement.style.display = "none"; // обнуление предыдущей ошибки;
 
         if (isNumber(celsius)) {
             kelvinsField.value = getKelvins(celsius);
@@ -22,22 +22,18 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         celsiusField.classList.add("red");
-        errorElement.style.display = 'block';
+        errorElement.style.display = "block";
     });
-});
 
-function getKelvins(celsius) {
-    return celsius + 273.15;
-};
-
-function getFahrenheits(celsius) {
-    return celsius * 9 / 5 + 32;
-};
-
-function isNumber(value) {
-    if (isNaN(value) || typeof (value) !== "number") {
-        return false;
+    function getKelvins(celsius) {
+        return celsius + 273.15;
     }
 
-    return true;
-};
+    function getFahrenheits(celsius) {
+        return celsius * 9 / 5 + 32;
+    }
+
+    function isNumber(value) {
+        return (!isNaN(value) && typeof (value) === "number") === true;
+    }
+});
