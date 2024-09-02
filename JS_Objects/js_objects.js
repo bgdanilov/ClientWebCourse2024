@@ -35,39 +35,45 @@
     ];
 
     function getCountriesWithMaxCitiesAmount(countries) {
-        const maxCitiesAmount = countries.reduce((citiesAmount, e) =>
-            Math.max(citiesAmount, e.cities.length), 0);
+        const maxCitiesAmount = countries.reduce((citiesAmount, country) => Math.max(citiesAmount, country.cities.length), 0);
 
-        return countries.filter(e => (e.cities.length === maxCitiesAmount))
-            .map(e => (e.name + " - " + e.cities.length))
-            .join("\n");
+        return countries.filter(country => country.cities.length === maxCitiesAmount);
     }
 
-    function getCountriesPopulations(countries) {
-        const countriesPopulations = {}; // пустой объект;
+    function getCountriesPopulation(countries) {
+        const countriesPopulation = {}; // пустой объект;
 
+        // А где тут фигурные скобки можно применить?
         countries.forEach(
-            e => (countriesPopulations[e.name] = // создаем поле на лету с названием страны;
-                e.cities.reduce((countriesPopulations, e) => countriesPopulations + e.population, 0))
+            // создаем поле на лету с названием страны;
+            country => countriesPopulation[country.name]
+                = country.cities.reduce((countryPopulation, city) => countryPopulation + city.population, 0)
         );
 
-        return countriesPopulations;
+        return countriesPopulation;
     }
 
     // 2. Страна/страны с максимальным количеством городов.
+    const countriesWithMaxCitiesAmount = getCountriesWithMaxCitiesAmount(countries);
+
     console.log("Страны с максимальным числом городов:");
-    console.log(getCountriesWithMaxCitiesAmount(countries));
+    console.log(countriesWithMaxCitiesAmount);
+
+    console.log(countriesWithMaxCitiesAmount
+        .map(country => country.name + " - " + country.cities.length)
+        .join("\n"));
+
     console.log("=============");
 
     // 3. Объект с информацией по всем странам такого вида:
     // ключ – название страны, значение – суммарная численность по стране.
-    const countriesPopulations = getCountriesPopulations(countries);
+    const countriesPopulation = getCountriesPopulation(countries);
 
     // Выводим поля и их значения у объекта.
     console.log("Страны и их население:");
-    console.log(countriesPopulations);
+    console.log(countriesPopulation);
 
-    for (let country in countriesPopulations) {
-        console.log(`${country} - ${countriesPopulations[country]}`);
+    for (const country in countriesPopulation) {
+        console.log(`${country} - ${countriesPopulation[country]}`);
     }
 })();
