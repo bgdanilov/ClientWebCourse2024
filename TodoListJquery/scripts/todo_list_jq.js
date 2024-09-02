@@ -60,7 +60,7 @@ $(function () {
                     const temp = editTodoField.val().trim();
 
                     if (temp.length === 0) {
-                        editTodoField.val() = "";
+                        editTodoField.val("");
                         editTodoField.addClass("invalid");
                         editTodoField.attr("placeholder", "Введите текст заметки!");
                         return;
