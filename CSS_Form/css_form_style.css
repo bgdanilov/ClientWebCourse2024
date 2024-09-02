@@ -25,7 +25,7 @@ body {
 }
 
 .content {
-    padding: 15px 20px 15px 20px;
+    padding: 15px 20px;
     background-color: #FDEED9;
 }
 
@@ -78,7 +78,6 @@ body {
     padding: 0.5em 0.8em;
     float: right;
     background-color: #388DB2;
-    border: 1px solid #387386;
     color: #FFF;
     font-weight: bold;
 }
