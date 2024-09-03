@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         celsiusField.classList.remove("red");
         errorElement.style.display = "none"; // обнуление предыдущей ошибки;
 
-        if (isNumber(celsius)) {
+        if (!!celsius) {
             kelvinsField.value = getKelvins(celsius);
             fahrenheitsField.value = getFahrenheits(celsius);
             return;
@@ -31,9 +31,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getFahrenheits(celsius) {
         return celsius * 9 / 5 + 32;
-    }
-
-    function isNumber(value) {
-        return !!value;
     }
 });
