@@ -34,6 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function isNumber(value) {
-        return (!isNaN(value) && typeof (value) === "number") === true;
+        return !!value;
     }
 });

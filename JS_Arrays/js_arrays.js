@@ -1,8 +1,8 @@
 "use strict";
 
 (function () {
-    function getDescendingSortedArray(arrayOfNumbers) {
-        return array.slice().sort((e1, e2) => e2 - e1);
+    function sortArrayDescending(numbersArray) {
+        return array.sort((e1, e2) => e2 - e1);
     }
 
     function getFirstFiveItems(array) {
@@ -13,16 +13,16 @@
         return array.slice(-5);
     }
 
-    function getEvenNumbersSum(array) {
-        return getEvenNumbers(array).reduce((sum, item) => sum + item, 0);
+    function getEvenNumbersSum(numbersArray) {
+        return getEvenNumbers(numbersArray).reduce((sum, item) => sum + item, 0);
     }
 
-    function getEvenNumbersSquares(array) {
-        return getEvenNumbers(array).map(e => e * e);
+    function getEvenNumbersSquares(numbersArray) {
+        return getEvenNumbers(numbersArray).map(e => e ** 2);
     }
 
-    function getEvenNumbers(array) {
-        return array.filter(e => e % 2 === 0);
+    function getEvenNumbers(numbersArray) {
+        return numbersArray.filter(e => e % 2 === 0);
     }
 
     // 1. Создайте массив чисел.
@@ -30,7 +30,7 @@
     console.log("Исходный массив: " + array);
 
     // 1.1. Сортировка по убыванию.
-    console.log("Новый массив в порядке убывания: " + getDescendingSortedArray(array));
+    console.log("Массив в порядке убывания: " + sortArrayDescending(array));
 
     // 1.2. Подмассив из первых 5 элементов.
     console.log("Подмассив из первых 5 элементов: " + getFirstFiveItems(array));
