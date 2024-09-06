@@ -2,15 +2,15 @@
 
 (function () {
     function sortArrayDescending(numbersArray) {
-        return array.sort((e1, e2) => e2 - e1);
+        return numbersArray.sort((e1, e2) => e2 - e1);
     }
 
-    function getFirstFiveItems(array) {
-        return array.slice(0, 5);
+    function getFirstItems(array, itemsAmount) {
+        return array.slice(0, itemsAmount);
     }
 
-    function getLastFiveItems(array) {
-        return array.slice(-5);
+    function getLastItems(array, itemsAmount) {
+        return array.slice(-itemsAmount);
     }
 
     function getEvenNumbersSum(numbersArray) {
@@ -18,7 +18,7 @@
     }
 
     function getEvenNumbersSquares(numbersArray) {
-        return getEvenNumbers(numbersArray).map(e => e ** 2);
+        return getEvenNumbers(numbersArray).map(e => e * e);
     }
 
     function getEvenNumbers(numbersArray) {
@@ -26,20 +26,20 @@
     }
 
     // 1. Создайте массив чисел.
-    const array = [2, 5, 1, 0, 7, 12, 9];
-    console.log("Исходный массив: " + array);
+    const numbersArray = [2, 5, 1, 0, 7, 12, 9];
+    console.log("Исходный массив: " + numbersArray);
 
     // 1.1. Сортировка по убыванию.
-    console.log("Массив в порядке убывания: " + sortArrayDescending(array));
+    console.log("Массив в порядке убывания: " + sortArrayDescending(numbersArray));
 
     // 1.2. Подмассив из первых 5 элементов.
-    console.log("Подмассив из первых 5 элементов: " + getFirstFiveItems(array));
+    console.log("Подмассив из первых 5 элементов: " + getFirstItems(numbersArray, 5));
 
     // 1.3. Подмассив из последних 5 элементов.
-    console.log("Подмассив из последних 5 элементов: " + getLastFiveItems(array));
+    console.log("Подмассив из последних 5 элементов: " + getLastItems(numbersArray, 5));
 
     // 1.4. Сумма элементов массива, которые являются четными числами.
-    console.log("Сумма элементов массива, которые являются четными числами: " + getEvenNumbersSum(array));
+    console.log("Сумма элементов массива, которые являются четными числами: " + getEvenNumbersSum(numbersArray));
 
     // 2. Создайте массив чисел от 1 до 100, в таком порядке.
     const numbers = [];
