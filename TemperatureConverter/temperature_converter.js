@@ -12,17 +12,18 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault(); // чтобы не перезагружалась страница.
 
         const celsius = parseFloat(celsiusField.value.trim());
+
         celsiusField.classList.remove("red");
         errorElement.style.display = "none"; // обнуление предыдущей ошибки;
 
-        if (!!celsius) {
-            kelvinsField.value = getKelvins(celsius);
-            fahrenheitsField.value = getFahrenheits(celsius);
+        if (isNaN(celsius) || typeof(value) !== "number") {
+            celsiusField.classList.add("red");
+            errorElement.style.display = "block";
             return;
-        };
+        }
 
-        celsiusField.classList.add("red");
-        errorElement.style.display = "block";
+        kelvinsField.value = getKelvins(celsius);
+        fahrenheitsField.value = getFahrenheits(celsius);
     });
 
     function getKelvins(celsius) {
