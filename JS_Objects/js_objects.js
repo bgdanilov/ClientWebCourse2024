@@ -40,17 +40,19 @@
         return countries.filter(country => country.cities.length === maxCitiesAmount);
     }
 
-    function getCountriesPopulation(countries) {
-        const countriesPopulation = {}; // пустой объект;
+    function getCountriesPopulations(countries) {
+        const countriesPopulations = {}; // пустой объект;
 
         // А где тут фигурные скобки можно применить?
         countries.forEach(
             // создаем поле на лету с названием страны;
-            country => countriesPopulation[country.name]
-                = country.cities.reduce((countryPopulation, city) => countryPopulation + city.population, 0)
+            country => {
+                countriesPopulations[country.name]
+                    = country.cities.reduce((countryPopulation, city) => countryPopulation + city.population, 0)
+            }
         );
 
-        return countriesPopulation;
+        return countriesPopulations;
     }
 
     // 2. Страна/страны с максимальным количеством городов.
@@ -67,7 +69,7 @@
 
     // 3. Объект с информацией по всем странам такого вида:
     // ключ – название страны, значение – суммарная численность по стране.
-    const countriesPopulation = getCountriesPopulation(countries);
+    const countriesPopulation = getCountriesPopulations(countries);
 
     // Выводим поля и их значения у объекта.
     console.log("Страны и их население:");
