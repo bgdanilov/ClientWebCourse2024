@@ -30,43 +30,46 @@ body {
     align-items: stretch;
 }
 
-.new_todo_field, .edit_todo_field {
-    display: block;
-    background-color: #ffffff;
+.new_todo_field {
+    background-color: #fff;
     padding: 0.5em 1em;
+    margin: 0 7px 0 0;
     flex-grow: 2;
 }
 
-.new_todo_field {
-    margin: 0 0.5em 0 0;
-}
-
-.edit_todo_field {
+/* todo item */
+.todo_list ul {
     width: 100%;
-    margin: 0 0 0.5em 0;
-}
-
-input.invalid {
-    outline: 2px solid #ac3b61;
-    outline-offset: 0;
-}
-
-input.invalid::placeholder {
-    color: #ac3b61;
 }
 
 .todo_list ul li {
-    background-color: #eee2dc;
-    margin: 10px 0 0 0;
-    padding: 5px;
+    line-height: 1.2em;
+    margin: 1em 0 0;
 }
 
-.todo_list span.todo_item_text {
-    padding: 0.5em 1em;
+input.edit_todo_field {
     display: block;
+    width: 100%;
+    background-color: #fff;
+    line-height: 1.2em;
 }
 
-/* Все кнопки. */
+p.todo_item_text {
+    line-height: 1.2em;
+}
+
+input.edit_todo_field, p.todo_item_text {
+    padding: 0.5em 1em;
+    margin: 0 0 0.5em;
+}
+
+.todo_list ul li::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/* buttons */
 .add_button, .delete_button, .edit_button, .cancel_button, .save_button {
     padding: 0.5em 0.8em;
 }
@@ -103,8 +106,12 @@ input.invalid::placeholder {
     background-color: #0b2c4f;
 }
 
-.todo_list ul li::after {
-    display: block;
-    content: "";
-    clear: both;
+/* invalid */
+input.invalid {
+    outline: 2px solid #ac3b61;
+    outline-offset: 0;
+}
+
+input.invalid::placeholder {
+    color: #ac3b61;
 }

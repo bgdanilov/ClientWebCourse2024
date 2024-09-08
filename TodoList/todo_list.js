@@ -1,9 +1,9 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
-    const addTodoForm = document.getElementById("add_todo_form");
+    const addTodoForm = document.querySelector(".add_todo_form");
     const newTodoField = addTodoForm.querySelector(".new_todo_field");
-    const todoList = document.getElementById("todo_list");
+    const todoItems = document.querySelector(".todo_items");
 
     // Добавление новой заметки.
     addTodoForm.addEventListener("submit", function (e) {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function setViewMode() {
             todoItem.innerHTML = `
-                <span class="todo_item_text"></span>
+                <p class="todo_item_text"></p>
                 <button class="delete_button">Удалить</button>
                 <button class="edit_button">Редактировать</button>
             `;
@@ -38,14 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
             // Редактирование заметки.
             todoItem.querySelector(".edit_button").addEventListener("click", function () {
                 todoItem.innerHTML = `
-                    <form class="edit_todo_form" id="edit_todo_form">
+                    <form class="edit_todo_form">
                         <input class="edit_todo_field" type="text">
                         <button class="save_button" type="submit">Сохранить</button>
                         <button class="cancel_button" type="button">Отмена</button>
                     </form>
                 `;
 
-                const editTodoForm = document.getElementById("edit_todo_form");
+                const editTodoForm = todoItem.querySelector(".edit_todo_form");
                 const editTodoField = todoItem.querySelector(".edit_todo_field");
                 editTodoField.value = newTodoText;
 
@@ -73,10 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setViewMode();
 
-        todoList.prepend(todoItem);
+        todoItems.prepend(todoItem);
         newTodoField.value = "";
     });
 });
-
-
-// А если я хочу div, вместо form? Тогда submit не получится сделать?

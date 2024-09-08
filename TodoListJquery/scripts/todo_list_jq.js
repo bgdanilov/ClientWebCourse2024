@@ -1,10 +1,9 @@
 "use strict";
 
 $(function () {
-    const addTodoForm = $("#add_todo_form");
+    const addTodoForm = $(".add_todo_form");
     const newTodoField = addTodoForm.find(".new_todo_field");
-
-    const todoList = $("#todo_list");
+    const todoItems = $(".todo_items");
 
     // Добавление новой заметки.
     addTodoForm.submit(function (e) {
@@ -24,7 +23,7 @@ $(function () {
 
         function setViewMode() {
             todoItem.html(`
-                <span class="todo_item_text"></span>
+                <p class="todo_item_text"></p>
                 <button class="delete_button">Удалить</button>
                 <button class="edit_button">Редактировать</button>
             `);
@@ -39,14 +38,14 @@ $(function () {
             // Редактирование заметки.
             todoItem.find(".edit_button").click(function () {
                 todoItem.html(`
-                    <form class="edit_todo_form" id="edit_todo_form">
+                    <form class="edit_todo_form">
                         <input class="edit_todo_field" type="text">
                         <button class="save_button" type="submit">Сохранить</button>
                         <button class="cancel_button" type="button">Отмена</button>
                     </form>
                 `);
 
-                const editTodoForm = $("#edit_todo_form");
+                const editTodoForm = todoItems.find(".edit_todo_form");
                 const editTodoField = editTodoForm.find(".edit_todo_field");
                 editTodoField.val(newTodoText);
 
@@ -74,7 +73,7 @@ $(function () {
 
         setViewMode();
 
-        todoList.prepend(todoItem);
+        todoItems.prepend(todoItem);
         newTodoField.val("");
     });
 });
