@@ -56,16 +56,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 editTodoForm.addEventListener("submit", function (e) {
                     e.preventDefault(); // чтобы не перезагружалась страница.
 
-                    const temp = editTodoField.value.trim();
+                    const editedText = editTodoField.value.trim();
 
-                    if (temp.length === 0) {
+                    if (editedText.length === 0) {
                         editTodoField.value = "";
                         editTodoField.classList.add("invalid");
                         editTodoField.placeholder = "Введите текст заметки!";
                         return;
                     }
 
-                    newTodoText = temp;
+                    newTodoText = editedText;
                     setViewMode();
                 });
             });

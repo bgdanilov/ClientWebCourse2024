@@ -56,16 +56,16 @@ $(function () {
                 editTodoForm.submit(function (e) {
                     e.preventDefault(); // чтобы не перезагружалась страница.
 
-                    const temp = editTodoField.val().trim();
+                    const editedText = editTodoField.val().trim();
 
-                    if (temp.length === 0) {
+                    if (editedText.length === 0) {
                         editTodoField.val("");
                         editTodoField.addClass("invalid");
                         editTodoField.attr("placeholder", "Введите текст заметки!");
                         return;
                     }
 
-                    newTodoText = temp;
+                    newTodoText = editedText;
                     setViewMode();
                 });
             });
