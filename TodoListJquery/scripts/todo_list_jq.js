@@ -45,7 +45,7 @@ $(function () {
                     </form>
                 `);
 
-                const editTodoForm = todoItems.find(".edit_todo_form");
+                const editTodoForm = todoItem.find(".edit_todo_form");
                 const editTodoField = editTodoForm.find(".edit_todo_field");
                 editTodoField.val(newTodoText);
 
