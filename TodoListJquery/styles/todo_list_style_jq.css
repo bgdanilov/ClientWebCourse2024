@@ -43,8 +43,10 @@ body {
 }
 
 .todo_list ul li {
+    background-color: #eee2dc;
     line-height: 1.2em;
     margin: 1em 0 0;
+    padding: 10px;
 }
 
 input.edit_todo_field {
