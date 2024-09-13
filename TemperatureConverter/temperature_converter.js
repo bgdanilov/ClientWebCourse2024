@@ -11,12 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
     converterForm.addEventListener("submit", function (e) {
         e.preventDefault(); // чтобы не перезагружалась страница.
 
-        const celsius = parseFloat(celsiusField.value.trim());
+        const celsius = +celsiusField.value.replace(',', '.');
 
         celsiusField.classList.remove("red");
         errorElement.style.display = "none"; // обнуление предыдущей ошибки;
 
-        if (isNaN(celsius) || typeof(value) !== "number") {
+        if (isNaN(celsius)) {
             celsiusField.classList.add("red");
             errorElement.style.display = "block";
             return;
