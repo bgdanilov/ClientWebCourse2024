@@ -11,19 +11,19 @@ document.addEventListener("DOMContentLoaded", function () {
     converterForm.addEventListener("submit", function (e) {
         e.preventDefault(); // чтобы не перезагружалась страница.
 
-        const celsius = +celsiusField.value.replace(',', '.');
-
         celsiusField.classList.remove("red");
         errorElement.style.display = "none"; // обнуление предыдущей ошибки;
 
-        if (isNaN(celsius)) {
+        const celsiusString = celsiusField.value.trim().replace(',', '.');
+
+        if (celsiusString.length === 0 || isNaN(celsiusString)) {
             celsiusField.classList.add("red");
             errorElement.style.display = "block";
             return;
         }
 
-        kelvinsField.value = getKelvins(celsius);
-        fahrenheitsField.value = getFahrenheits(celsius);
+        kelvinsField.value = getKelvins(+celsiusString);
+        fahrenheitsField.value = getFahrenheits(+celsiusString);
     });
 
     function getKelvins(celsius) {
