@@ -11,11 +11,11 @@ $(function () {
 
         let newTodoText = newTodoField.val().trim();
         newTodoField.removeClass("invalid");
-        newTodoField.attr("placeholder", "Текст заметки");
+        newTodoField.prop("placeholder", "Текст заметки");
 
         if (newTodoText.length === 0) {
             newTodoField.addClass("invalid");
-            newTodoField.attr("placeholder", "Введите текст заметки!");
+            newTodoField.prop("placeholder", "Введите текст заметки!");
             return;
         }
 
@@ -61,7 +61,7 @@ $(function () {
                     if (editedText.length === 0) {
                         editTodoField.val("");
                         editTodoField.addClass("invalid");
-                        editTodoField.attr("placeholder", "Введите текст заметки!");
+                        editTodoField.prop("placeholder", "Введите текст заметки!");
                         return;
                     }
 
