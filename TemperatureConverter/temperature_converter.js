@@ -15,15 +15,16 @@ document.addEventListener("DOMContentLoaded", function () {
         errorElement.style.display = "none"; // обнуление предыдущей ошибки;
 
         const celsiusString = celsiusField.value.trim().replace(',', '.');
-
-        if (celsiusString.length === 0 || isNaN(celsiusString)) {
+        const celsius = +celsiusString;
+        
+        if (celsiusString.length === 0 || Number.isNaN(celsius)) {
             celsiusField.classList.add("red");
             errorElement.style.display = "block";
             return;
         }
 
-        kelvinsField.value = getKelvins(+celsiusString);
-        fahrenheitsField.value = getFahrenheits(+celsiusString);
+        kelvinsField.value = getKelvins(celsius);
+        fahrenheitsField.value = getFahrenheits(celsius);
     });
 
     function getKelvins(celsius) {
