@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru-Ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Телефоннная книга на Бутстрап</title>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="styles/phonebook_bootstrap_style.css" rel="stylesheet">
+    <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="scripts/phonebook_bootstrap.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mb-4">Телефоннная книга</h1>
+
+        <div class="row contact_form mb-4">
+            <div class="col">
+                <form class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="firstName" class="form-label">Имя</label>
+                            <div class="has-validation">
+                                <input type="text" class="form-control" id="firstName" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста, введите имя.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="lastName" class="form-label">Фамилия</label>
+                            <div class="has-validation">
+                                <input type="text" class="form-control" id="lastName" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста, введите фамилию.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <div class="has-validation">
+                                <input type="phone" class="form-control" id="phone" required>
+                                <div class="invalid-feedback">
+                                    Пожалуйста, введите телефон.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 justify-content-md-end">
+                            <button type="submit" class="btn btn-primary">Добавить контакт</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row contacts_table">
+            <div class="col">
+                <table class="table table-primary table-bordered border-primary table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="col">#</th>
+                            <th scope="col" class="col-md-4">Имя</th>
+                            <th scope="col" class="col-md-4">Фамилия</th>
+                            <th scope="col" class="col-md-4">Телефон</th>
+                            <th scope="col" class="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>Bird</td>
+                            <td>@twitter</td>
+                            <td>@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
