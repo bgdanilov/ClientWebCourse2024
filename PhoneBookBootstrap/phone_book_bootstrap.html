@@ -9,6 +9,7 @@
     <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="styles/phonebook_bootstrap_style.css" rel="stylesheet">
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="node_modules/jquery/dist/jquery.js"></script>
     <script defer src="scripts/phonebook_bootstrap.js"></script>
 </head>
 
@@ -16,14 +17,14 @@
     <div class="container">
         <h1 class="mb-4">Телефоннная книга</h1>
 
-        <div class="row contact_form mb-4">
+        <div class="row mb-4">
             <div class="col">
-                <form class="needs-validation" novalidate>
+                <form class="contact_form needs-validation">
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="firstName" class="form-label">Имя</label>
                             <div class="has-validation">
-                                <input type="text" class="form-control" id="firstName" required>
+                                <input type="text" class="form-control" id="firstName">
                                 <div class="invalid-feedback">
                                     Пожалуйста, введите имя.
                                 </div>
@@ -32,7 +33,7 @@
                         <div class="col-md-4">
                             <label for="lastName" class="form-label">Фамилия</label>
                             <div class="has-validation">
-                                <input type="text" class="form-control" id="lastName" required>
+                                <input type="text" class="form-control" id="lastName">
                                 <div class="invalid-feedback">
                                     Пожалуйста, введите фамилию.
                                 </div>
@@ -41,17 +42,29 @@
                         <div class="col-md-4">
                             <label for="phone" class="form-label">Телефон</label>
                             <div class="has-validation">
-                                <input type="phone" class="form-control" id="phone" required>
+                                <input type="phone" class="form-control" id="phone">
                                 <div class="invalid-feedback">
                                     Пожалуйста, введите телефон.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 justify-content-md-end">
-                            <button type="submit" class="btn btn-primary">Добавить контакт</button>
+                        <div class="col-12 buttons justify-content-md-end">
+                            <button id="add_button" name="add" class="btn btn-primary" style="display: none;">Добавить контакт</button>
+                            <button id="save_button" name="save" class="btn btn-primary" style="display: none;">Сохранить</button>
+                            <button id="cancel_button" name="cancel" type="button" class="btn btn-primary" style="display: none;">Отменить</button>
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <h3>Поиск:</h3>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="search_form input-group">
+                    <input type="text" class="form-control" placeholder="Имя пользователя получателя" aria-label="Имя пользователя получателя with two button addons">
+                    <button class="clear_search_button btn btn-outline-secondary" type="button">Очистить</button>
+                  </div>
             </div>
         </div>
 
@@ -67,37 +80,7 @@
                             <th scope="col" class="col"></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-primary">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>Bird</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                        </tr>
+                    <tbody id="contact_list">
                     </tbody>
                 </table>
             </div>
