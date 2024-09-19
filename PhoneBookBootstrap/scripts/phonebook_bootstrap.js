@@ -52,6 +52,8 @@ $(function () {
         }
     ];
 
+    //const editDialog = $("#edit_modal");
+
     let currentId = 8;
     let editedContactId;
     let editedContact = null;
@@ -75,6 +77,25 @@ $(function () {
 
     const contactList = $("#contact_list");
 
+    let editDialog = $("#edit_modal");
+
+    async function foo(msg) {
+        return new Promise((resolve, reject) => {
+            editDialog = $("#edit_modal");
+            editDialog.find("#boris").html(msg);
+
+            const confirmButton = editDialog.find("#confirm_button");
+
+            // убил на этот off() полдня!
+            // два раза заходило в if (confirmed) {...}
+            confirmButton.off().click(() => {
+                resolve(true);
+            });
+
+            editDialog.modal('show');
+        });
+    }
+
     // ===== События. ===========================================================================================
     searchField.on("input", function () {
         searchString = searchField.val().trim().toLowerCase();
@@ -94,14 +115,19 @@ $(function () {
         viewContacts(allContacts);
     });
 
-    contactForm.submit(function (e) {
+    contactForm.submit(async (e) => {
         e.preventDefault(); // чтобы не перезагружалась страница.
 
         if (checkFormValidity()) {
             const submitButtonPressed = e.originalEvent.submitter.name;
 
             if (submitButtonPressed === "add") {
-                addNewContact();
+                let confirmed = await foo("Действительно добавить?");
+
+                if (confirmed) {
+                    editDialog.modal('hide');
+                    addNewContact();
+                }
             } else if (submitButtonPressed === "save") {
                 saveContact(editedContactId);
             }
@@ -297,4 +323,5 @@ $(function () {
 
     resetForm();
     viewContacts(allContacts);
+    //addButton.click();
 });
