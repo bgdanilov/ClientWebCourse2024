@@ -53,10 +53,14 @@ $(function () {
     ];
 
     let currentId = 8;
+
     let editedContactId;
+
     let editedContact = null;
+    let enteredContact = null;
 
     const contactForm = $(".contact_form");
+    const editDialog = $("#edit_modal");
 
     const searchForm = $(".search_form");
     const searchField = searchForm.find("input.form-control");
@@ -75,39 +79,57 @@ $(function () {
 
     const contactList = $("#contact_list");
 
-    // ===== События. ===========================================================================================
-    searchField.on("input", function () {
-        searchString = searchField.val().trim().toLowerCase();
-
-        console.log(searchString);
-
-        foundContacts = allContacts
-            .filter(contact => (contact.firstName.toLowerCase().indexOf(searchString) === 0
-                || contact.lastName.toLowerCase().indexOf(searchString) === 0
-                || contact.phone.toLowerCase().indexOf(searchString) === 0));
-
-        viewContacts(foundContacts);
-    });
-
-    clearSearchButton.click(function () {
-        resetSearch();
-        viewContacts(allContacts);
-    });
-
-    contactForm.submit(function (e) {
+    // ===== События. ================================================================================================
+    // async - возвращает Promis.
+    contactForm.submit(async function (e) {
         e.preventDefault(); // чтобы не перезагружалась страница.
 
         if (checkFormValidity()) {
             const submitButtonPressed = e.originalEvent.submitter.name;
 
-            if (submitButtonPressed === "add") {
-                addNewContact();
-            } else if (submitButtonPressed === "save") {
-                saveContact(editedContactId);
-            }
+            // Запоминаем введенные данные, находящиеся в форме.
+            enteredContact = getEnteredContact();
+            const contactData = getContactInfo(enteredContact);
 
-            resetForm();
-            viewContacts(allContacts);
+            if (submitButtonPressed === "add") {
+                // await - можно использовать только внутри async-функций.
+                const confirmed = await isConfirmed(editDialog, "Добавить контакт?", contactData);
+
+                if (confirmed) {
+                    editDialog.modal('hide');
+                    addNewContact(enteredContact);
+                    resetSearch();
+                    resetContactForm();
+                }
+
+                viewContacts(allContacts);
+            } else if (submitButtonPressed === "save") {
+                const confirmed = await isConfirmed(editDialog, "Сохранить контакт?", contactData);
+
+                if (confirmed) {
+                    editDialog.modal('hide');
+
+                    // Тут приходится сохранять как в "БД" (allContacts), так в текущей выборки (contacts = foundContacts).
+                    // Как в таких случаях правилно поступить?
+                    // Может сохранять всегда в первоисточнике, а на вывод повесить постоянный фильтр:
+                    // типа viewContacts(contacts.filteredBy(searchString)); ?
+                    // Аналогично в коде удаления контакта.
+                    if (allContacts.length === foundContacts.length) {
+                        // TODO: Можно добавить проверку на одинаковость контактов, если нет изменений, то и сохранять не надо.
+                        saveContact(editedContactId, allContacts, enteredContact);
+                        viewContacts(allContacts);
+                    } else {
+                        saveContact(editedContactId, allContacts, enteredContact);
+                        saveContact(editedContactId, foundContacts, enteredContact);
+                        viewContacts(foundContacts);
+                    }
+
+                    resetContactForm();
+                } else {
+                    // Возвращаем в форму прежние данные контакта.
+                    setContactForm(editedContact);
+                }
+            }
         }
     });
 
@@ -124,110 +146,136 @@ $(function () {
     });
 
     cancelButton.click(function () {
-        resetForm();
+        resetContactForm();
     });
 
-    // ===== Функции. =======================================================================================
-    function viewContacts(contactsArray) {
+    searchField.on("input", function () {
+        searchString = searchField.val().trim().toLowerCase();
+
+        foundContacts = allContacts
+            .filter(contact => (contact.firstName.toLowerCase().indexOf(searchString) === 0
+                || contact.lastName.toLowerCase().indexOf(searchString) === 0
+                || contact.phone.toLowerCase().indexOf(searchString) === 0));
+
+        viewContacts(foundContacts);
+    });
+
+    clearSearchButton.click(function () {
+        resetSearch();
+        viewContacts(allContacts);
+    });
+
+    // ===== Функции. ================================================================================================
+    function viewContacts(contacts) {
         contactList.html(""); // обнуление списка;
 
-        if (contactsArray.length === 0) {
+        if (contacts.length === 0) {
             return;
         }
 
         let contactOrderNumber = 1;
 
-        for (let contactIndex in contactsArray) {
+        for (let contactIndex in contacts) {
             const contactItem = $("<tr></tr>")
                 .html('<th scope="row">' + contactOrderNumber++ + '</th>'
-                    + "<td>" + contactsArray[contactIndex].firstName + "</td>"
-                    + "<td>" + contactsArray[contactIndex].lastName + "</td>"
-                    + "<td>" + contactsArray[contactIndex].phone + "</td>"
+                    + "<td>" + contacts[contactIndex].firstName + "</td>"
+                    + "<td>" + contacts[contactIndex].lastName + "</td>"
+                    + "<td>" + contacts[contactIndex].phone + "</td>"
                     + '<td>\
-                                <div class="btn-group btn-group-sm" role="group">\
-                                    <button type="button" class="edit_button btn btn-primary">\
-                                        <i class="bi bi-pencil-square"></i>\
-                                    </button>\
-                                    <button type="button" class="delete_button btn btn-primary">\
-                                        <i class="bi bi-trash"></i>\
-                                    </button>\
-                                </div>\
-                            </td>')
+                            <div class="btn-group btn-group-sm" role="group">\
+                                <button type="button" class="edit_button btn btn-primary">\
+                                    <i class="bi bi-pencil-square"></i>\
+                                </button>\
+                                <button type="button" class="delete_button btn btn-danger">\
+                                    <i class="bi bi-trash"></i>\
+                                </button>\
+                            </div>\
+                        </td>')
                 .appendTo(contactList);
 
             contactItem.find(".edit_button").click(function () {
-                editContact(contactsArray[contactIndex].id);
+                editContact(contacts[contactIndex].id);
             });
 
-            contactItem.find(".delete_button").click(function () {
-                deleteContact(contactsArray[contactIndex].id);
-                resetForm();
-                viewContacts(allContacts);
+            contactItem.find(".delete_button").click(async function () {
+                // Стоит ли этот кусок с await-функцией вынести в отдельную функцию и оставить только ее вызов?
+                // Чтобы не занимало память, ведь контактов может быть много.
+                const contactData = getContactInfo(contacts[contactIndex]);
+                const confirmed = await isConfirmed(editDialog, "Удалить контакт?", contactData);
+
+                if (confirmed) {
+                    editDialog.modal('hide');
+                    const deletedContactId = contacts[contactIndex].id;
+
+                    if (allContacts.length === contacts.length) {
+                        deleteContact(allContacts, deletedContactId);
+                    } else {
+                        deleteContact(contacts, deletedContactId);
+                        deleteContact(allContacts, deletedContactId);
+                    }
+
+                    resetContactForm();
+                    viewContacts(contacts);
+                }
             });
         }
     }
 
-    function addNewContact() {
-        const firstName = badSymbolsEscape(firstNameField.val().trim());
-        const lastName = badSymbolsEscape(lastNameField.val().trim());
-        const phone = badSymbolsEscape(phoneField.val().trim());
-
-        let contact = {
-            id: ++currentId,
-            firstName: firstName,
-            lastName: lastName,
-            phone: phone
-        };
-
-        allContacts.push(contact);
+    // Получение-установка данных контакта. --------------------------------------------------------------------------
+    function getEnteredContact() {
+        return {
+            id: 0,
+            firstName: dangerSymbolsEscape(firstNameField.val().trim()),
+            lastName: dangerSymbolsEscape(lastNameField.val().trim()),
+            phone: dangerSymbolsEscape(phoneField.val().trim())
+        }
     }
 
-    function deleteContact(id) {
-        let deletedContactIndex = allContacts
-            .findIndex(contact => contact.id === id);
+    function setContactForm(contact) {
+        firstNameField.val(contact[0].firstName);
+        lastNameField.val(contact[0].lastName);
+        phoneField.val(contact[0].phone);
+    }
 
-        allContacts.splice(deletedContactIndex, 1);
+    function getContactInfo(contact) {
+        return '<strong>' + contact.firstName + ' ' + contact.lastName + '</strong></br>телефон: ' + contact.phone;
+    }
+
+    // Добавление, удаление, редактирование, сохранение. -------------------------------------------------------------
+    function addNewContact(contact) {
+        const newContact = Object.assign({}, contact);
+        newContact.id = ++currentId;
+
+        allContacts.push(newContact);
+    }
+
+    function deleteContact(contacts, id) {
+        const deletedContactIndex = contacts.findIndex(contact => contact.id === id);
+        contacts.splice(deletedContactIndex, 1);
     }
 
     function editContact(id) {
-        resetForm();
+        resetContactForm();
+
+        hideButton(addButton);
+        showButton(saveButton);
+        cancelButton.show();
 
         editedContact = allContacts.filter(contact => contact.id === id);
         editedContactId = id;
 
-        hideButton(addButton);
-        showButton(saveButton);
-
-        firstNameField.val(editedContact[0].firstName);
-        lastNameField.val(editedContact[0].lastName);
-        phoneField.val(editedContact[0].phone);
+        setContactForm(editedContact);
     }
 
-    function saveContact(id) {
-        const firstName = badSymbolsEscape(firstNameField.val().trim());
-        const lastName = badSymbolsEscape(lastNameField.val().trim());
-        const phone = badSymbolsEscape(phoneField.val().trim());
+    function saveContact(id, contactsArray, contactFormData) {
+        const savedContact = contactsArray.find(contact => contact.id === id);
 
-        const savedContact = allContacts.find(contact => contact.id === id);
-
-        savedContact.firstName = firstName;
-        savedContact.lastName = lastName;
-        savedContact.phone = phone;
+        savedContact.firstName = contactFormData.firstName;
+        savedContact.lastName = contactFormData.lastName;
+        savedContact.phone = contactFormData.phone;
     }
 
-    function resetForm() {
-        showButton(addButton);
-        hideButton(saveButton);
-        cancelButton.show();
-
-        contactForm.find("input.form-control").each(function () {
-            $(this).removeClass("is-invalid");
-            $(this).removeClass("is-valid");
-            $(this).val("");
-            $(this).blur();
-        });
-    }
-
+    // Валидация. ----------------------------------------------------------------------------------------------------
     function isPhoneAlreadyExist(phone) {
         return allContacts.find(item => item.phone.trim() === phone);
     }
@@ -269,6 +317,64 @@ $(function () {
             && !phoneField.hasClass("is-invalid");
     }
 
+    const dangerSymbolsEscapes = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&lsquo;'
+    };
+
+    function dangerSymbolsEscape(inputString) {
+        return inputString.replace(/[&<>"']/g, symbol => dangerSymbolsEscapes[symbol]);
+    };
+
+    // Почему тут можно убрать async и ошибки не будет?
+    async function isConfirmed(dialog, dialogLabel, dialogMessage) {
+        return new Promise(function (resolve, reject) {
+            dialog.find("#modal_label").html(dialogLabel);
+            dialog.find("#modal_body").html(dialogMessage);
+
+            const confirmButton = editDialog.find("#confirm_button");
+            const abortButton = editDialog.find("#abort_button");
+            dialog.modal('show');
+
+            dialog.on('hide.bs.modal', function () {
+                resolve(false);
+            });
+
+            // Убил на этот off() полдня!
+            // Если я отказывался добавлять контакт, то обработчик кнопки "да" в пямяти оставался.
+            // При добавлении контакта вновь, создавался второй обработчик кнопки "да".
+            // И вот они оба срабатывали, наконец: текущий добалял контакт, а предыдущий пустой контакт.
+            // Два раза заходило в if (confirmed) {...}
+
+            // Может стоит удалять обработчики еще других местах? В каких?
+            confirmButton.off().click(function () {
+                resolve(true);
+            });
+
+            // Оставить этот код? Вроде кнопка приводит к закрытитю, а закрытие к false и данное событие лишнее.
+            abortButton.off().click(function () {
+                resolve(false);
+            });
+        });
+    }
+
+    // Сброс, поиск. -------------------------------------------------------------------------------------------------
+    function resetContactForm() {
+        showButton(addButton);
+        hideButton(saveButton);
+        cancelButton.hide();
+
+        contactForm.find("input.form-control").each(function () {
+            $(this).removeClass("is-invalid");
+            $(this).removeClass("is-valid");
+            $(this).val("");
+            $(this).blur();
+        });
+    }
+
     function hideButton(button) {
         button.prop("type", "button");
         button.hide();
@@ -283,18 +389,6 @@ $(function () {
         searchField.val("");
     }
 
-    const badSymbolsEscapes = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&lsquo;'
-    };
-
-    function badSymbolsEscape(string) {
-        return string.replace(/[&<>"']/g, symbol => badSymbolsEscapes[symbol]);
-    };
-
-    resetForm();
+    resetContactForm();
     viewContacts(allContacts);
 });
