@@ -67,7 +67,7 @@ $(function () {
     const clearSearchButton = searchForm.find("button.clear_search_button");
 
     let searchString;
-    let foundContacts;
+    let foundContacts = [];
 
     const firstNameField = $("#firstName");
     const lastNameField = $("#lastName");
@@ -114,7 +114,7 @@ $(function () {
                     // Может сохранять всегда в первоисточнике, а на вывод повесить постоянный фильтр:
                     // типа viewContacts(contacts.filteredBy(searchString)); ?
                     // Аналогично в коде удаления контакта.
-                    if (allContacts.length === foundContacts.length) {
+                    if (foundContacts.length === 0) {
                         // TODO: Можно добавить проверку на одинаковость контактов, если нет изменений, то и сохранять не надо.
                         saveContact(editedContactId, allContacts, enteredContact);
                         viewContacts(allContacts);
@@ -207,7 +207,7 @@ $(function () {
                     editDialog.modal('hide');
                     const deletedContactId = contacts[contactIndex].id;
 
-                    if (allContacts.length === contacts.length) {
+                    if (foundContacts.length === 0) {
                         deleteContact(allContacts, deletedContactId);
                     } else {
                         deleteContact(contacts, deletedContactId);
@@ -269,6 +269,8 @@ $(function () {
 
     function saveContact(id, contactsArray, contactFormData) {
         const savedContact = contactsArray.find(contact => contact.id === id);
+
+        console.log(contactFormData);
 
         savedContact.firstName = contactFormData.firstName;
         savedContact.lastName = contactFormData.lastName;
