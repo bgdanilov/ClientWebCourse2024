@@ -1,116 +1,112 @@
 <!DOCTYPE html>
 <html lang="ru-Ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Телефоннная книга на Бутстрап</title>
+
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="styles/phonebook_bootstrap_style.css" rel="stylesheet">
+
+    <!-- JQuery - должен быть первым. -->
     <script defer src="node_modules/jquery/dist/jquery.js"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="scripts/phonebook_bootstrap.js"></script>
 </head>
-
 <body>
+<div class="container">
 
-    <div class="container">
-        <div class="container">
-            <!-- Modal -->
-            <div class="modal fade" id="edit_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        </div>
-                        <div id="boris" class="modal-body">
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button id="abort_button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button id="confirm_button" type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="edit_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_label"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-
-            <!--<h1 class="mb-4">Телефоннная книга</h1>-->
-
-            <div class="row mb-4">
-                <div class="col">
-                    <form class="contact_form needs-validation">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label for="firstName" class="form-label">Имя</label>
-                                <div class="has-validation">
-                                    <input type="text" class="form-control" id="firstName">
-                                    <div class="invalid-feedback">
-                                        Пожалуйста, введите имя.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="lastName" class="form-label">Фамилия</label>
-                                <div class="has-validation">
-                                    <input type="text" class="form-control" id="lastName">
-                                    <div class="invalid-feedback">
-                                        Пожалуйста, введите фамилию.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="phone" class="form-label">Телефон</label>
-                                <div class="has-validation">
-                                    <input type="phone" class="form-control" id="phone">
-                                    <div class="invalid-feedback">
-                                        Пожалуйста, введите телефон.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 buttons justify-content-md-end">
-                                <button id="add_button" name="add" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#staticBackdrop" style="display: none;">Добавить контакт</button>
-                                <button id="save_button" name="save" class="btn btn-primary"
-                                    style="display: none;">Сохранить</button>
-                                <button id="cancel_button" name="cancel" type="button" class="btn btn-primary"
-                                    style="display: none;">Отменить</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <h3>Поиск:</h3>
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="search_form input-group">
-                        <input type="text" class="form-control" placeholder="Имя пользователя получателя"
-                            aria-label="Имя пользователя получателя with two button addons">
-                        <button class="clear_search_button btn btn-outline-secondary" type="button">Очистить</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row contacts_table">
-                <div class="col">
-                    <table class="table table-primary table-bordered border-primary table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="col">#</th>
-                                <th scope="col" class="col-md-4">Имя</th>
-                                <th scope="col" class="col-md-4">Фамилия</th>
-                                <th scope="col" class="col-md-4">Телефон</th>
-                                <th scope="col" class="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="contact_list">
-                        </tbody>
-                    </table>
+                <div id="modal_body" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button id="abort_button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                    <button id="confirm_button" type="button" class="btn btn-primary">Да</button>
                 </div>
             </div>
         </div>
-</body>
+    </div>
 
+    <!-- Contact Form -->
+    <div class="row mb-4">
+        <div class="col">
+            <form class="contact_form needs-validation">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="firstName" class="form-label">Имя</label>
+                        <div class="has-validation">
+                            <input type="text" class="form-control" id="firstName" placeholder="Имя">
+                            <div class="invalid-feedback">
+                                Пожалуйста, введите имя.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="lastName" class="form-label">Фамилия</label>
+                        <div class="has-validation">
+                            <input type="text" class="form-control" id="lastName" placeholder="Фамилия">
+                            <div class="invalid-feedback">
+                                Пожалуйста, введите фамилию.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="phone" class="form-label">Телефон</label>
+                        <div class="has-validation">
+                            <input type="phone" class="form-control" id="phone" placeholder="Телефон">
+                            <div class="invalid-feedback">
+                                Пожалуйста, введите телефон.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 buttons justify-content-md-end">
+                        <button id="add_button" name="add" class="btn btn-primary" style="display: none;">Добавить
+                            контакт</button>
+                        <button id="save_button" name="save" class="btn btn-primary"
+                            style="display: none;">Сохранить</button>
+                        <button id="cancel_button" name="cancel" type="button" class="btn btn-secondary"
+                            style="display: none;">Отменить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="search_form input-group">
+                <input type="text" class="form-control" placeholder="Поиск"
+                    aria-label="Поиск">
+                <button class="clear_search_button btn btn-outline-secondary" type="button">Очистить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contacts Table -->
+    <div class="row contacts_table">
+        <div class="col">
+            <table class="table table-primary table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col">#</th>
+                        <th scope="col" class="col-md-4">Имя</th>
+                        <th scope="col" class="col-md-4">Фамилия</th>
+                        <th scope="col" class="col-md-4">Телефон</th>
+                        <th scope="col" class="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="contact_list"></tbody>
+            </table>
+        </div>
+    </div>
+</div>   
+</body>
 </html>
