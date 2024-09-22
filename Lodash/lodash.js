@@ -17,10 +17,7 @@
     ];
 
     function getAverageAge(personsArray) {
-        let totalAge = 0;
-        _.forEach(personsArray, person => totalAge += person.age);
-
-        return totalAge / personsArray.length;
+        return _.sumBy(personsArray, "age") / personsArray.length;
     }
 
     function getPersonsFrom20To30SortedByAgeAscending(personsArray) {
@@ -34,8 +31,8 @@
         return _.chain(personsArray)
             .filter(person => person.age >= 20 && person.age <= 30)
             .sort((e1, e2) => e2.name > e1.name ? 1 : -1)
-            .uniqBy(person => person.name)
             .map(person => person.name)
+            .sortedUniq()
             .value();
     }
 
