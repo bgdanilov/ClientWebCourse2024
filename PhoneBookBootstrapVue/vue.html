@@ -7,25 +7,18 @@
     <title>Vue</title>
 
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="styles/phonebook_bootstrap_vue_style.css" rel="stylesheet">
 
     <!-- JQuery - должен быть первым. -->
-    <script defer src="node_modules/jquery/dist/jquery.js"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="node_modules/vue/dist/vue.global.js"></script>
     <script defer src="scripts/vue.js"></script>
 </head>
 
 <body>
-    <div id="form">
-        <div>
-            <div>Ваш возраст: <span v-text="age">23</span></div>
-        </div>
-        <label>
-            Введите ваш возраст: <input v-model="age" type="text">
-        </label>
-    </div>
+<div id="app" class="container">
+    <h1 class="mt-2 mb-2">Phonebook</h1>
+    <phone-book></phone-book>
+</div>
 </body>
-
 </html>
