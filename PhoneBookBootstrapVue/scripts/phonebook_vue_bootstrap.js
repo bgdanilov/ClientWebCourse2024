@@ -11,8 +11,8 @@ Vue.createApp({})
                 searchString: "",
 
                 editedContact: Object(),
-                modalTitle: "",
-                modalMessage: "",
+                dialogTitle: "",
+                dialogMessage: "",
 
                 firstName: "",
                 secondName: "",
@@ -53,13 +53,13 @@ Vue.createApp({})
                     }
                 } else if (submitButton === "save") {
                     if (this.isFormValid()) {
-                        const dialog = new bootstrap.Modal(document.getElementById('edit_modal'));
-                        this.modalTitle = "Сохранить изменения?"
-                        this.modalMessage = this.firstName + "</br>" + this.secondName + "</br>" + this.phone;
+                        const dialog = new bootstrap.Modal(document.getElementById("edit_modal"));
+                        this.dialogTitle = "Сохранить изменения?"
+                        this.dialogMessage = this.firstName + " " + this.secondName + "</br> Телефон: " + this.phone;
 
-                        const confirmed = await this.isConfirmed(dialog);
+                        const isDialogConfirmed = await this.showModalDialog(dialog);
 
-                        if (confirmed) {
+                        if (isDialogConfirmed) {
                             dialog.hide();
                             this.saveContact();
                             this.isFormSubmitted = false;
@@ -84,7 +84,7 @@ Vue.createApp({})
 
             saveContact() {
                 this.editedContact.firstName = this.firstName;
-                this.editedContact.firstName = this.secondName;
+                this.editedContact.firstSecondName = this.secondName;
                 this.editedContact.phone = this.phone;
 
                 this.editedContact = {};
@@ -106,6 +106,7 @@ Vue.createApp({})
                 this.isFormSubmitted = false;
 
                 this.resetFieldsValues();
+                console.log("fff");
             },
 
             resetFieldsValues() {
@@ -115,14 +116,14 @@ Vue.createApp({})
             },
 
             async removeContact(contact) {
-                const dialog = new bootstrap.Modal(document.getElementById('edit_modal'));
-                this.modalTitle = "Удалить контакт?"
-                this.modalMessage = contact.firstName + "</br>" + contact.secondName + "</br>" + contact.phone;
+                const dialog = new bootstrap.Modal(document.getElementById("edit_modal"));
+                this.dialogTitle = "Удалить контакт?"
+                this.dialogMessage = contact.firstName + " " + contact.secondName + "</br> Телефон: " + contact.phone;
 
-                const confirmed = await this.isConfirmed(dialog);
-                this.modalTitle = "Удалить?"
+                const isDialogConfirmed = await this.showModalDialog(dialog);
+                this.dialogTitle = "Удалить?"
 
-                if (confirmed) {
+                if (isDialogConfirmed) {
                     dialog.hide();
                     this.contacts = this.contacts.filter(c => c.id !== contact.id);
                 }
@@ -132,7 +133,7 @@ Vue.createApp({})
 
             validateTextField(inputValue) {
                 if (this.isFormSubmitted) {
-                    return inputValue.trim() !== "" ? 'is-valid' : 'is-invalid';
+                    return inputValue.trim() !== "" ? "is-valid" : "is-invalid";
                 }
 
                 return "";
@@ -142,11 +143,11 @@ Vue.createApp({})
                 if (this.isFormSubmitted) {
                     if (this.isPhoneAlreadyExist(inputValue) && this.editedContact.phone !== inputValue) {
                         this.phoneWarningMessage = "Такой телефон уже есть"
-                        return 'is-invalid';
+                        return "is-invalid";
                     }
 
                     this.phoneWarningMessage = "Введите телефон."
-                    return inputValue.trim() !== "" ? 'is-valid' : 'is-invalid';
+                    return inputValue.trim() !== "" ? "is-valid" : "is-invalid";
                 }
 
                 return "";
@@ -162,12 +163,12 @@ Vue.createApp({})
                     && this.validatePhoneField(this.phone) === "is-valid"
             },
 
-            isConfirmed(dialog) {
+            showModalDialog(dialog) {
                 return new Promise(function (resolve) {
                     dialog.show();
 
-                    const confirmButton = document.getElementById('confirm_button');
-                    const abortButton = document.getElementById('abort_button');
+                    const confirmButton = document.getElementById("confirm_button");
+                    const abortButton = document.getElementById("abort_button");
 
                     // onclick - выполняется единожды, поэтому удалять его после выполнения не надо.
                     confirmButton.onclick = function () {
@@ -183,8 +184,8 @@ Vue.createApp({})
 
         template: `
           <modal-dialog
-              :header="modalTitle"
-              :message="modalMessage"
+              :header="dialogTitle"
+              :message="dialogMessage"
           />
           <div class="row mb-4">
             <div class="col">
@@ -218,12 +219,16 @@ Vue.createApp({})
                     />
                   </div>
                   <div class="col-12 buttons justify-content">
-                    <div v-if="!this.isFormInEditingMode" class="col">
+                    <div v-if="!this.isFormInEditingMode && !this.isFormSubmitted" class="col">
+                      <button name="add" class="btn btn-primary">Добавить</button>
+                    </div>
+                    <div v-else-if="!this.isFormInEditingMode && this.isFormSubmitted" class="col">
+                      <button name="cancel" class="btn btn-secondary me-2" @click="cancel">Отменить</button>
                       <button name="add" class="btn btn-primary">Добавить</button>
                     </div>
                     <div v-else class="col">
+                      <button name="cancel" class="btn btn-secondary me-2" @click="cancel">Отменить</button>
                       <button name="save" class="btn btn-primary">Сохранить</button>
-                      <button name="cancel" class="btn btn-primary" @click="cancel">Отменить</button>
                     </div>
                   </div>
                 </div>
@@ -239,7 +244,7 @@ Vue.createApp({})
             </div>
           </div>
 
-          <div class="row contacts_table">
+          <div class="row table-responsive">
             <contacts-list
                 :contacts="foundContacts"
                 @remove="removeContact"
@@ -316,7 +321,7 @@ Vue.createApp({})
             },
         },
 
-        emits: ['remove', 'edit'],
+        emits: ["remove", "edit"],
 
         template: `
           <h3>Список контактов</h3>
@@ -382,8 +387,7 @@ Vue.createApp({})
         },
 
         template: `
-          <div class="modal fade" id="edit_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-               aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal fade" id="edit_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
