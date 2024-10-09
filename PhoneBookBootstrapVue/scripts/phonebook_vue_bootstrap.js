@@ -106,7 +106,6 @@ Vue.createApp({})
                 this.isFormSubmitted = false;
 
                 this.resetFieldsValues();
-                console.log("fff");
             },
 
             resetFieldsValues() {
@@ -309,7 +308,9 @@ Vue.createApp({})
                 :value="searchValue"
                 @input="updateSearchValue"
             >
-            <button @click="clearSearchValue" class="clear_search_button btn btn-outline-secondary" type="button">Очистить</button>
+            <button @click="clearSearchValue" class="clear_search_button btn btn-outline-secondary" type="button">
+              Очистить
+            </button>
           </div>`
     })
 
