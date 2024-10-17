@@ -11,7 +11,8 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "twig": "~0.10.3"
+    "twig": "~0.10.3",
+    "vue": "^3.5.12"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

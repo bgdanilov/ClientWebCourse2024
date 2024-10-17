@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru-Ru">
   <head>
     <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <script defer src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script defer src="/node_modules/vue/dist/vue.global.js"></script>
+    <script defer src="/node_modules/axios/dist/axios.js"></script>
+    <script defer src="/js/script.js"></script>
   </head>
   <body>
-    {% block body %}{% endblock %}
+  {% block body %}
+  {% endblock %}
   </body>
 </html>

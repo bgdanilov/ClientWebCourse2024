@@ -1,7 +1,62 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-  <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
-  <p>Test2</p>
+  {% verbatim %}
+    <div id="app" class="container my-2" v-cloak>
+        <h1>Phones</h1>
+
+        <form @submit.prevent="createContact" class="mb-3">
+            <h2 class="h5">Добавить контакт</h2>
+
+            <div class="row row-cols-lg-auto g-3">
+                <div class="col-12">
+                    <input v-model="name" type="text" class="form-control" placeholder="Имя">
+                </div>
+                <div class="col-12">
+                    <input v-model="phone" type="text" class="form-control" placeholder="Телефон">
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary me-2">Создать</button>
+                    <button class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+        </form>
+
+        <form @submit.prevent="loadContacts" class="mb-3">
+            <h2 class="h5">Поиск:</h2>
+
+            <div class="row row-cols-lg-auto g-3">
+                <div class="col-12">
+                    <input v-model="term" type="text" class="form-control" placeholder="Поиск">
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary me-2">Поиск</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-primary table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Имя</th>
+                        <th>Телефон</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(contact, index) in contacts" :key="contact.id">
+                        <td v-text="index + 1"></td>
+                        <td v-text="contact.name"></td>
+                        <td v-text="contact.phone"></td>
+                        <td>
+                            <button @click="delContact(contact)" class="btn btn-danger" type="button">Удалить</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  {% endverbatim %}
 {% endblock %}
