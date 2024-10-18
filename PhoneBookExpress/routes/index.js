@@ -1,4 +1,5 @@
 const express = require('express');
+const {params} = require("express/lib/request");
 const router = express.Router();
 
 /* GET home page. */
@@ -24,6 +25,26 @@ router.delete("/api/contacts/:id", function (req, res) {
     const id = Number(req.params.id);
 
     contacts = contacts.filter(c => c.id !== id);
+
+    res.send({
+        success: true,
+        message: null
+    });
+});
+
+router.put("/api/contacts/:id", function (req, res) {
+    const editedContactId = Number(req.params.id);
+    const savedContact = contacts.find(contact => contact.id === editedContactId);
+
+    const forSaveContact = {
+        name: req.body.name,
+        phone: req.body.phone
+    };
+
+    // TODO: Валидация.
+
+    savedContact.name = forSaveContact.name;
+    savedContact.phone = forSaveContact.phone;
 
     res.send({
         success: true,
