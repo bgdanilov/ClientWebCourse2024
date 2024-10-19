@@ -12,11 +12,13 @@ let currentContactId = 1;
 
 router.get("/api/contacts", function (req, res) {
     // Вытаскиваем строку запроса /api/contacts?term=text
-    const term = (req.query.term || "").toUpperCase();
+    const searchString = (req.query.searchString || "").toUpperCase();
 
-    const result = term.length === 0
+    const result = searchString.length === 0
         ? contacts
-        : contacts.filter(c => c.name.toUpperCase().includes(term) || c.phone.toUpperCase().includes(term));
+        : contacts.filter(c => c.name.toUpperCase().includes(searchString)
+            || c.family.toUpperCase().includes(searchString)
+            || c.phone.toUpperCase().includes(searchString));
     // Передаем данные и они преобразуются в JSON.
     res.send(result);
 });
@@ -38,12 +40,12 @@ router.put("/api/contacts/:id", function (req, res) {
 
     const forSaveContact = {
         name: req.body.name,
+        family: req.body.family,
         phone: req.body.phone
     };
 
-    // TODO: Валидация.
-
     savedContact.name = forSaveContact.name;
+    savedContact.family = forSaveContact.family;
     savedContact.phone = forSaveContact.phone;
 
     res.send({
@@ -55,6 +57,7 @@ router.put("/api/contacts/:id", function (req, res) {
 router.post("/api/contacts", function (req, res) {
     const contact = {
         name: req.body.name,
+        family: req.body.family,
         phone: req.body.phone
     };
 
@@ -63,6 +66,15 @@ router.post("/api/contacts", function (req, res) {
         res.send({
             success: false,
             message: "Поле 'name' обязательно."
+        });
+
+        return;
+    }
+
+    if (!contact.family) {
+        res.send({
+            success: false,
+            message: "Поле 'family' обязательно."
         });
 
         return;
