@@ -1,9 +1,8 @@
 <script>
-import "bootstrap/dist/js/bootstrap.bundle";
 import PhoneBookService from "./phonebookService";
 import ContactForm from "./ContactForm.vue";
 import SearchForm from "./SearchForm.vue";
-import ContactList from "./ContactList.vue";
+import ContactsList from "./ContacstList.vue";
 import ModalDialog from "./ModalDialog.vue";
 
 
@@ -13,7 +12,7 @@ export default {
   components: {
     ContactForm,
     SearchForm,
-    ContactList,
+    ContactsList,
     ModalDialog
   },
 
@@ -168,7 +167,6 @@ export default {
 </script>
 
 <template>
-  <div id="app" class="container my-2" v-cloak>
     <modal-dialog
         ref="confirmModal"
         :header="dialogTitle"
@@ -206,5 +204,4 @@ export default {
           @edit="editContact"
       />
     </div>
-  </div>
 </template>

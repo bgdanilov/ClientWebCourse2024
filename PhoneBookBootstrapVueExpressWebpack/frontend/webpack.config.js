@@ -1,4 +1,5 @@
 const path = require("path");
+
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");     // импорт плагина удаления файла сборки;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");    // плагин для работы с CSS;
 const { VueLoaderPlugin } = require("vue-loader");                  // плагин для Vue;

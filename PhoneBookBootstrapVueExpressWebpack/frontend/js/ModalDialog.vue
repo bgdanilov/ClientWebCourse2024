@@ -1,4 +1,6 @@
 <script>
+import { Modal } from "bootstrap"
+
 export default {
   name: "ModalDialog",
 
@@ -21,7 +23,7 @@ export default {
   },
 
   mounted() {
-    this.dialog = new bootstrap.Modal(this.$refs.modal);
+    this.dialog = new Modal(this.$refs.modal);
   },
 
   methods: {
