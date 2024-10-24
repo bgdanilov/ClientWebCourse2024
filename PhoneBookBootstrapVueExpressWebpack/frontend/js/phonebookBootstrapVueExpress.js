@@ -1,3 +1,6 @@
+import "bootstrap/dist/css/bootstrap.css";
+import "../css/style.scss";
+
 function executeGet(url, data) {
     return axios.get(url, {
         params: data
