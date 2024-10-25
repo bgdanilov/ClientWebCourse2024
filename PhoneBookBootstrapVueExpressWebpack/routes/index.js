@@ -2,11 +2,6 @@ const express = require('express');
 const {params} = require("express/lib/request");
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', function (req, res) {
-    res.render('index', {title: 'Express'});
-});
-
 let contacts = [];
 let currentContactId = 1;
 

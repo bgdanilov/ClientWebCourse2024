@@ -3,7 +3,7 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");     // импорт плагина удаления файла сборки;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");    // плагин для работы с CSS;
 const { VueLoaderPlugin } = require("vue-loader");                  // плагин для Vue;
-
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     devtool: "source-map",          // создавать source-map файл;
@@ -16,6 +16,16 @@ module.exports = {
         filename: "webpackScript.js",
         path: path.resolve(__dirname, "../public"),
         assetModuleFilename: "[path][name][ext]?[contenthash]"
+    },
+
+    devServer: {
+        hot: true,
+        proxy: [
+            {
+                context: ["/api"],
+                target: "http://localhost:3000",
+            }
+        ]
     },
 
     module: {
@@ -59,6 +69,9 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "styles.css" // имя файла с результатом;
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            template: "index.html"
+        })
     ]
 }

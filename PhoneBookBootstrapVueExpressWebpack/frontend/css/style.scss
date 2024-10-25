@@ -2,8 +2,9 @@
   display: none;
 }
 
-$body-color: #f00;
+$body-red: #f00;
+$body-black: #000;
 
 body {
-  color: $body-color;
+  color: $body-black;
 }
