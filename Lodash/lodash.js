@@ -2,18 +2,18 @@
 
 (function () {
     const persons = [
-        { name: "Bob", age: 17 },
-        { name: "Dude", age: 37 },
-        { name: "Cris", age: 21 },
-        { name: "Cris", age: 25 },
-        { name: "Alex", age: 71 },
-        { name: "Martin", age: 45 },
-        { name: "John", age: 14 },
-        { name: "Phil", age: 38 },
-        { name: "Arnold", age: 6 },
-        { name: "Jane", age: 20 },
-        { name: "Katrine", age: 32 },
-        { name: "Katrine", age: 29 }
+        {name: "Bob", age: 17},
+        {name: "Dude", age: 37},
+        {name: "Cris", age: 21},
+        {name: "Cris", age: 25},
+        {name: "Alex", age: 71},
+        {name: "Martin", age: 45},
+        {name: "John", age: 14},
+        {name: "Phil", age: 38},
+        {name: "Arnold", age: 6},
+        {name: "Jane", age: 20},
+        {name: "Katrine", age: 32},
+        {name: "Katrine", age: 29},
     ];
 
     function getAverageAge(personsArray) {
@@ -31,8 +31,18 @@
         return _.chain(personsArray)
             .filter(person => person.age >= 20 && person.age <= 30)
             .map(person => person.name)
-            .sortedUniq()
-            .sort((e1, e2) => e2.name > e1.name ? 1 : -1)
+            .uniq()
+            .sort((e1, e2) => {
+                if (e2 > e1) {
+                    return 1;
+                }
+
+                if (e2 < e1) {
+                    return -1;
+                }
+
+                return 0;
+            })
             .value();
     }
 
